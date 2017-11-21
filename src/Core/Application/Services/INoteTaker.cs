@@ -6,9 +6,9 @@ namespace CompanyName.Notebook.NoteTaking.Core.Application.Services
 
     public interface INoteTaker
     {
-        NoteDto AddNote(NewNoteMessage newNoteMessage);
-        NoteDto AddNoteToCategory(Guid categoryId, NewNoteMessage newNoteMessage);
-        IList<NoteDto> ReadCategory(Guid categoryId);
-        NoteDto ReadNote(Guid noteId);
+        NoteDto TakeNote(NewNoteMessage newNoteMessage);
+        NoteDto TakeCategorizedNote(Guid categoryId, NewNoteMessage newNoteMessage);
+        IList<NoteDto> ReadCategorizedNotes(Guid categoryId);
+        NoteDto ReadCategorizedNote(Guid categoryId, Guid noteId);
     }
 }
