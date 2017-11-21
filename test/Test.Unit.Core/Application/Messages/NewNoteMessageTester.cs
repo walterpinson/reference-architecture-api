@@ -18,7 +18,6 @@ namespace Test.Unit.Core.Application.Messages
 
             // ASSERT
             Assert.That(subjectUnderTest, Is.TypeOf(typeof(NewNoteMessage)));
-            Assert.That(subjectUnderTest, Is.InstanceOf(typeof(NewNoteMessage)));
         }
 
         [Test]

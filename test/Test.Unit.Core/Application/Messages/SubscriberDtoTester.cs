@@ -22,7 +22,7 @@ namespace Test.Unit.Core.Application.Messages
         }
 
         [Test]
-        public void CanSetSubscriberId()
+        public void CanSetId()
         {
             // ARRANGE
             var expectedId = Guid.NewGuid();
@@ -36,7 +36,7 @@ namespace Test.Unit.Core.Application.Messages
         }
 
         [Test]
-        public void CanSetSubscriberEmailAddress()
+        public void CanSetEmailAddress()
         {
             // ARRANGE
             var expectedEmailAddress = "mickey.mouse@disnet.com";

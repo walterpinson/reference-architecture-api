@@ -18,11 +18,10 @@ namespace Test.Unit.Core.Application.Messages
 
             // ASSERT
             Assert.That(subjectUnderTest, Is.TypeOf(typeof(NoteDto)));
-            Assert.That(subjectUnderTest, Is.InstanceOf(typeof(NoteDto)));
         }
 
         [Test]
-        public void CanSetNoteId()
+        public void CanSetId()
         {
             // ARRANGE
             var expectedId = Guid.NewGuid();
@@ -36,7 +35,7 @@ namespace Test.Unit.Core.Application.Messages
         }
 
         [Test]
-        public void CanSetNoteText()
+        public void CanSetText()
         {
             // ARRANGE
             var expectedText = "Don't to forget to pick up bread from the grocery store.";
@@ -50,7 +49,7 @@ namespace Test.Unit.Core.Application.Messages
         }
 
         [Test]
-        public void CanSetNoteCreateDate()
+        public void CanSetCreated()
         {
             // ARRANGE
             var expectedCreated = new DateTime(1999, 1, 1);
