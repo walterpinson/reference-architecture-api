@@ -49,30 +49,48 @@ namespace CompanyName.Notebook.NoteTaking.Core.Domain.Models
         public void RemoveNote(Guid id)
         {
             if(Guid.Empty == id) return;
-            if(null == Notes) return;
-            if(Notes.Count < 1) return;
+            if(null == Notes || Notes.Count < 1) return;
 
             Notes.Remove(Notes.FirstOrDefault(note => note.Id == id));
         }
 
         public INote RevealNote(Guid id)
         {
-            throw new NotImplementedException();
+            if(null == Notes || Notes.Count < 1) throw new NullReferenceException();
+
+            return Notes.FirstOrDefault(note => note.Id == id);
         }
 
         public IList<INote> RevealNotes()
         {
-            throw new NotImplementedException();
+            if(null == Notes || Notes.Count < 1) throw new NullReferenceException();
+
+            return Notes;
         }
 
         public ISubscriber AddSubscriber(string emailAddress)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(emailAddress))
+            {
+                throw new ArgumentException("Subscriber emailAddress required.", nameof(emailAddress));
+            }
+
+            var subscriber = _subscriberFactory.Create(emailAddress);
+
+            if (null == Subscribers)
+                Subscribers = new List<ISubscriber>();
+            
+            Subscribers.Add(subscriber);
+
+            return subscriber;
         }
 
-        public ISubscriber RemoveSubscriber(Guid id)
+        public void RemoveSubscriber(Guid id)
         {
-            throw new NotImplementedException();
+            if(Guid.Empty == id) return;
+            if(null == Subscribers ||Subscribers.Count < 1 ) return;
+
+            Subscribers.Remove(Subscribers.FirstOrDefault(subscriber => subscriber.Id == id));
         }
     }
 }
