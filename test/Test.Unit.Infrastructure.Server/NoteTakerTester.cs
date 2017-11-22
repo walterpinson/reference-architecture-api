@@ -1,6 +1,7 @@
 namespace Test.Unit.Infrastructure.Server
 {
     using System;
+    using AutoMapper;
     using CompanyName.Notebook.NoteTaking.Core.Application.Services;
     using CompanyName.Notebook.NoteTaking.Core.Domain.Factories;
     using CompanyName.Notebook.NoteTaking.Core.Domain.Services;
@@ -14,6 +15,7 @@ namespace Test.Unit.Infrastructure.Server
         private INoteFactory _noteFactory;
         private ISubscriberFactory _subscriberFactory;
         private ICategoryRepository _categoryRepository;
+        private IMapper _mapper;
 
         [OneTimeSetUp]
         public void OneTimeSetup()
@@ -22,6 +24,7 @@ namespace Test.Unit.Infrastructure.Server
             _noteFactory = Substitute.For<INoteFactory>();
             _subscriberFactory = Substitute.For<ISubscriberFactory>();
             _categoryRepository = Substitute.For<ICategoryRepository>();
+            _mapper = Substitute.For<IMapper>();
         }
 
         [OneTimeTearDown]
@@ -29,6 +32,8 @@ namespace Test.Unit.Infrastructure.Server
         {
             _noteFactory = null;
             _subscriberFactory = null;
+            _categoryRepository = null;
+            _mapper = null;
         }
 
         [SetUp]
@@ -37,6 +42,8 @@ namespace Test.Unit.Infrastructure.Server
             // ARRANGE
             _noteFactory.ClearReceivedCalls();
             _subscriberFactory.ClearReceivedCalls();
+            _categoryRepository.ClearReceivedCalls();
+            _mapper.ClearReceivedCalls();
         }
 
         [Test]
@@ -48,7 +55,8 @@ namespace Test.Unit.Infrastructure.Server
             var subjectUnderTest = new NoteTaker(
                 _noteFactory,
                 _subscriberFactory,
-                _categoryRepository
+                _categoryRepository,
+                _mapper
             );
 
             // ASSERT
