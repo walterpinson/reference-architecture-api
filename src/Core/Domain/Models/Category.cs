@@ -2,6 +2,7 @@ namespace CompanyName.Notebook.NoteTaking.Core.Domain.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using CompanyName.Notebook.NoteTaking.Core.Domain.Factories;
 
     public class Category : ICategory
@@ -45,9 +46,13 @@ namespace CompanyName.Notebook.NoteTaking.Core.Domain.Models
             return note;
         }
 
-        public void RemoveNote(Guid Id)
+        public void RemoveNote(Guid id)
         {
-            throw new NotImplementedException();
+            if(Guid.Empty == id) return;
+            if(null == Notes) return;
+            if(Notes.Count < 1) return;
+
+            Notes.Remove(Notes.FirstOrDefault(note => note.Id == id));
         }
 
         public INote RevealNote(Guid id)

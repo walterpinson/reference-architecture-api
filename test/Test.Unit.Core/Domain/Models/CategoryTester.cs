@@ -148,5 +148,28 @@ namespace Test.Unit.Core.Domain.Models
             );
             Assert.That(ex.Message, Is.EqualTo(expectedExceptionMessage));
         }
+
+        [Test]
+        public void CanRemoveNote()
+        {
+            // ARRANGE
+            string expectedName = "Verbose Notes";
+            string expectedNoteText = "This is just a reminder to go to the store.";
+            var expectedId = Guid.NewGuid();
+            var expectedNote = Substitute.For<INote>();
+            var subjectUnderTest = new Category(expectedName, _noteFactory, _subscriberFactory);
+
+            _noteFactory.Create(expectedNoteText).Returns(expectedNote);
+            expectedNote.Id.Returns(expectedId);
+            subjectUnderTest.AddNote(expectedNoteText);
+            Assert.That(subjectUnderTest.Notes.Count, Is.EqualTo(1));
+
+            // ACT
+            subjectUnderTest.RemoveNote(expectedId);
+
+            // ASSERT
+            Assert.That(subjectUnderTest.Notes.Count, Is.EqualTo(0));
+            _noteFactory.Received(1).Create(expectedNoteText);
+        }
     }
 }
