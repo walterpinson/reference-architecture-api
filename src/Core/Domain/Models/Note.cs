@@ -2,11 +2,11 @@ namespace CompanyName.Notebook.NoteTaking.Core.Domain.Models
 {
     using System;
 
-    public class Note
+    public class Note : INote
     {
-        public Guid Id { get; private set; }
-        public string Text { get; private set; }
-        public DateTime Created { get; private set; }
+        public Guid Id { get; protected set; }
+        public string Text { get; protected set; }
+        public DateTime Created { get; protected set; }
 
         public Note(string text)
         {

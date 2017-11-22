@@ -4,8 +4,8 @@ namespace CompanyName.Notebook.NoteTaking.Core.Domain.Models
 
     public interface INote
     {
-        Guid Id { get; set; }
-        string Text { get; set; }
-        DateTime Created { get; set; }
+        Guid Id { get; }
+        string Text { get; }
+        DateTime Created { get; }
     }
 }
