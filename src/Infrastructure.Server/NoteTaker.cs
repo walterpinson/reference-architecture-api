@@ -3,6 +3,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
     using System;
     using System.Collections.Generic;
     using AutoMapper;
+    using CompanyName.Notebook.NoteTaking.Core.Application.Exceptions;
     using CompanyName.Notebook.NoteTaking.Core.Application.Messages;
     using CompanyName.Notebook.NoteTaking.Core.Application.Services;
     using CompanyName.Notebook.NoteTaking.Core.Domain.Factories;
@@ -31,14 +32,20 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
         public NoteDto ReadCategorizedNote(Guid categoryId, Guid noteId)
         {
             var category = _categoryRepository.Get(categoryId);
+            if (null == category) throw new NoteTakerException("Category note found.");
+
             var note = category.RevealNote(noteId);
+            if (null == note) throw new NoteTakerException("Note not found.");
 
             return _mapper.Map<NoteDto>(note);
         }
 
         public IList<NoteDto> ReadCategorizedNotes(Guid categoryId)
         {
-            throw new NotImplementedException();
+            var category = _categoryRepository.Get(categoryId);
+            if (null == category) throw new NoteTakerException("Category note found.");
+
+            return _mapper.Map<IList<NoteDto>>(category.Notes);
         }
 
         public NoteDto TakeCategorizedNote(Guid categoryId, NewNoteMessage newNoteMessage)
