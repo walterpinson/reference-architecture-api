@@ -114,15 +114,39 @@ namespace Test.Unit.Core.Domain.Models
         {
             // ARRANGE
             string expectedName = "Verbose Notes";
-
-            // ACT
+            string expectedNoteText = "This is just a reminder to go to the store.";
+            var expectedNote = Substitute.For<INote>();
             var subjectUnderTest = new Category(expectedName, _noteFactory, _subscriberFactory);
 
+            _noteFactory.Create(expectedNoteText).Returns(expectedNote);
+
+            // ACT
+            var result = subjectUnderTest.AddNote(expectedNoteText);
+
             // ASSERT
-            Assert.That(subjectUnderTest, Is.TypeOf(typeof(Category)));
-            Assert.That(subjectUnderTest, Is.InstanceOf(typeof(ICategory)));
-            Assert.That(subjectUnderTest.Name, Is.EqualTo(expectedName));
-            Assert.That(subjectUnderTest.Created, Is.LessThanOrEqualTo(DateTime.UtcNow));
+            Assert.That(result, Is.InstanceOf(typeof(INote)));
+            Assert.That(result, Is.SameAs(expectedNote));
+            Assert.That(subjectUnderTest.Notes, Is.Not.Null);
+            Assert.That(subjectUnderTest.Notes.Count, Is.EqualTo(1));
+            _noteFactory.Received(1).Create(expectedNoteText);
+        }
+
+        [Test]
+        public void AddNoteThrowsArgumentExceptionWhenTextNull()
+        {
+            // ARRANGE
+            var expectedName = "Verbose Notes";
+            string expectedNoteText = null;
+            var expectedExceptionMessage = "Note text required.\nParameter name: text";
+
+            var subjectUnderTest = new Category(expectedName, _noteFactory, _subscriberFactory);
+
+            // ACT
+            // ASSERT
+            var ex = Assert.Throws<ArgumentException>(
+                () => subjectUnderTest.AddNote(expectedNoteText)
+            );
+            Assert.That(ex.Message, Is.EqualTo(expectedExceptionMessage));
         }
     }
 }

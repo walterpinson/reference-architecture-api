@@ -30,7 +30,19 @@ namespace CompanyName.Notebook.NoteTaking.Core.Domain.Models
 
         public INote AddNote(string text)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(text))
+            {
+                throw new ArgumentException("Note text required.", nameof(text));
+            }
+
+            var note = _noteFactory.Create(text);
+
+            if (null == Notes)
+                Notes = new List<INote>();
+            
+            Notes.Add(note);
+
+            return note;
         }
 
         public void RemoveNote(Guid Id)
