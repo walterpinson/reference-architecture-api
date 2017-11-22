@@ -19,6 +19,7 @@ namespace Test.Unit.Core.Domain.Models
             // ASSERT
             Assert.That(subjectUnderTest, Is.TypeOf(typeof(Category)));
             Assert.That(subjectUnderTest, Is.InstanceOf(typeof(ICategory)));
+            Assert.That(subjectUnderTest.Id, Is.EqualTo(Guid.Empty));
         }
 
         [Test]
@@ -35,6 +36,20 @@ namespace Test.Unit.Core.Domain.Models
             Assert.That(subjectUnderTest, Is.InstanceOf(typeof(ICategory)));
             Assert.That(subjectUnderTest.Name, Is.EqualTo(expectedName));
             Assert.That(subjectUnderTest.Created, Is.LessThanOrEqualTo(DateTime.UtcNow));
+        }
+
+        [Test]
+        public void ConstructorThrowsArgumentExceptionWhenNameNull()
+        {
+            // ARRANGE
+            var expectedExceptionMessage = "New Note must have name.\nParameter name: name";
+
+            // ACT
+            // ASSERT
+            var ex = Assert.Throws<ArgumentException>(
+                () => new Category(null)
+            );
+            Assert.That(ex.Message, Is.EqualTo(expectedExceptionMessage));
         }
     }
 }
