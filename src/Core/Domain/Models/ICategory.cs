@@ -16,6 +16,6 @@ namespace CompanyName.Notebook.NoteTaking.Core.Domain.Models
         INote RevealNote(Guid id);
         IList<INote> RevealNotes();
         ISubscriber AddSubscriber(string emailAddress);
-        ISubscriber RemoveSubscriber(Guid id);
+        void RemoveSubscriber(Guid id);
     }
 }
