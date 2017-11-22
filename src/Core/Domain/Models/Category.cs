@@ -21,7 +21,7 @@ namespace CompanyName.Notebook.NoteTaking.Core.Domain.Models
 
         public Category(string name, INoteFactory noteFactory, ISubscriberFactory subscriberFactory)
         {
-            Name = (string.IsNullOrEmpty(name)) ? name : throw new ArgumentException("New Note must have name.", nameof(name));
+            Name = (!string.IsNullOrEmpty(name)) ? name : throw new ArgumentException("New Note must have name.", nameof(name));
             _noteFactory = noteFactory ?? throw new ArgumentNullException(nameof(noteFactory));
             _subscriberFactory = subscriberFactory ?? throw new ArgumentNullException(nameof(subscriberFactory));
 
