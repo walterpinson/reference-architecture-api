@@ -29,6 +29,7 @@ namespace Test.Unit.Core.Domain.Models
         {
             // ARRANGE
             var expectedExceptionMessage = "New Note must have text.\nParameter name: text";
+            
             // ACT
             // ASSERT
             var ex = Assert.Throws<ArgumentException>(
