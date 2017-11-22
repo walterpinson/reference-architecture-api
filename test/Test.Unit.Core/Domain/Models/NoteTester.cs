@@ -21,6 +21,7 @@ namespace Test.Unit.Core.Domain.Models
             Assert.That(subjectUnderTest, Is.TypeOf(typeof(Note)));
             Assert.That(subjectUnderTest.Text, Is.EqualTo(expectedText));
             Assert.That(subjectUnderTest.Id, Is.Not.EqualTo(Guid.Empty));
+            Assert.That(subjectUnderTest.Created, Is.LessThanOrEqualTo(DateTime.UtcNow));
         }
 
         [Test]
