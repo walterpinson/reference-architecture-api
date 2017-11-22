@@ -5,6 +5,6 @@ namespace CompanyName.Notebook.NoteTaking.Core.Domain.Factories
 
     public interface ISubscriberFactory
     {
-        INote Create(string emailAddress);
+        ISubscriber Create(string emailAddress);
     }
 }
