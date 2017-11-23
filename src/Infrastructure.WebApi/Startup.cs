@@ -6,6 +6,7 @@
     using System.Net;
     using System.Threading.Tasks;
     using AutoMapper;
+    using CompanyName.Notebook.NoteTaking.Core.Application.Services;
     using CompanyName.Notebook.NoteTaking.Infrastructure.Server;
     using CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Exceptions;
     using Microsoft.AspNetCore.Builder;
@@ -42,6 +43,10 @@
             {
                 cfg.AddProfile<MessageMappingProfile>();
             });
+
+            // Add Application services.
+            services.AddTransient<INoteTaker, NoteTaker>();
+            services.AddTransient<ISubscriber, Subscriber>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
