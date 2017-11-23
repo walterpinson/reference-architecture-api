@@ -88,9 +88,19 @@ namespace CompanyName.Notebook.NoteTaking.Core.Domain.Models
         public void RemoveSubscriber(Guid id)
         {
             if(Guid.Empty == id) return;
-            if(null == Subscribers ||Subscribers.Count < 1 ) return;
+            if(null == Subscribers ||Subscribers.Count < 1) return;
 
             Subscribers.Remove(Subscribers.FirstOrDefault(subscriber => subscriber.Id == id));
+        }
+
+        public void ChangeName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Valid name required for name change.", nameof(name));
+            }
+
+            Name = name;
         }
     }
 }
