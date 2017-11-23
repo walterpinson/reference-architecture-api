@@ -11,6 +11,10 @@ namespace CompanyName.Notebook.NoteTaking.Core.Domain.Factories
             ISubscriberFactory subscriberFactory
         );
 
-        ICategory Build(ICategory category);
+        ICategory Build(
+            ICategory category,
+            INoteFactory noteFactory,
+            ISubscriberFactory subscriberFactory
+        );
     }
 }
