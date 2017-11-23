@@ -76,7 +76,11 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
                 category = _categoryRepository.Add(category);
             }
 
-            category = _categoryFactory.Build(category);
+            category = _categoryFactory.Build(
+                category,
+                _noteFactory,
+                _subscriberFactory
+            );
 
             category.RemoveNote(noteId);
             _categoryRepository.Save(category);
@@ -96,7 +100,11 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
                 category = _categoryRepository.Add(category);
             }
 
-            category = _categoryFactory.Build(category);
+            category = _categoryFactory.Build(
+                category,
+                _noteFactory,
+                _subscriberFactory
+            );
 
             var notes = category.Notes;
 
@@ -134,7 +142,24 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
 
         public CategoryDto RenameCategory(Guid categoryId, string newCategoryName)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(newCategoryName))
+            {
+                throw new ArgumentException("message", nameof(newCategoryName));
+            }
+
+            var category = _categoryRepository.Get(categoryId);
+            if (null == category) throw new NoteTakerException("Category not found.");
+
+            category = _categoryFactory.Build(
+                category,
+                _noteFactory,
+                _subscriberFactory
+            );
+
+            category.ChangeName(newCategoryName);
+            category = _categoryRepository.Save(category);
+
+            return _mapper.Map<CategoryDto>(category);
         }
 
         public CategoryDto GetCategoryDetail(Guid categoryId)
