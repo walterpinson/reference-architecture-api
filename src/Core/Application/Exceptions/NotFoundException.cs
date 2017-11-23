@@ -2,9 +2,9 @@ namespace CompanyName.Notebook.NoteTaking.Core.Application.Exceptions
 {
     using System;
 
-    public class NoteTakerException : Exception
+    public class NotFoundException : Exception
     {
-        public NoteTakerException(string message, Exception innerException=null)
+        public NotFoundException(string message, Exception innerException=null)
             :base(message, innerException) { }
     }
 }
