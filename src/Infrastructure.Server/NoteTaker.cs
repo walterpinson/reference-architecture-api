@@ -209,36 +209,5 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
 
             return _mapper.Map<CategoryDto>(category);
         }
-
-
-        //
-        // TOSS THE GARBAGE ONCE DONE
-        public NoteDto ReadCategorizedNote(Guid categoryId, Guid noteId)
-        {
-            var category = _categoryRepository.Get(categoryId);
-            if (null == category) throw new NoteTakerException("Category note found.");
-
-            
-
-            var note = category.RevealNote(noteId);
-            if (null == note) throw new NoteTakerException("Note not found.");
-
-            return _mapper.Map<NoteDto>(note);
-        }
-
-        public IList<NoteDto> ReadCategorizedNotes(Guid categoryId)
-        {
-            var category = _categoryRepository.Get(categoryId);
-            if (null == category) throw new NoteTakerException("Category not found.");
-
-            category = _categoryFactory.Build(
-                category,
-                _noteFactory,
-                _subscriberFactory
-            );
-
-            return _mapper.Map<IList<NoteDto>>(category.Notes);
-        }
-
     }
 }
