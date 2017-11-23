@@ -9,7 +9,7 @@ namespace CompanyName.Notebook.NoteTaking.Core.Domain.Services
         ICategory Get(Guid id);
         IList<ICategory> Get(string userId);
         ICategory Add<ICategory>(ICategory category);
-        ICategory Save<ICategory>(ICategory order);
+        ICategory Save<ICategory>(ICategory category);
         ICategory Delete(Guid id);
     }
 }
