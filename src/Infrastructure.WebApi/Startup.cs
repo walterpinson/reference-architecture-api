@@ -5,6 +5,8 @@
     using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
+    using AutoMapper;
+    using CompanyName.Notebook.NoteTaking.Infrastructure.Server;
     using CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Exceptions;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Diagnostics;
@@ -34,6 +36,11 @@
             // Add Framework services
             services.AddMvc(config => {
                 config.Filters.Add(typeof(NoteBookExceptionFilter));
+            });
+
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<MessageMappingProfile>();
             });
         }
 
