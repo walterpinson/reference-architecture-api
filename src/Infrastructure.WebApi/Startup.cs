@@ -31,7 +31,10 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            // Add Framework services
+            services.AddMvc(config => {
+                config.Filters.Add(typeof(NoteBookExceptionFilter));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
