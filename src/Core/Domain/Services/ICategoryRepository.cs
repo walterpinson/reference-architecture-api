@@ -7,7 +7,8 @@ namespace CompanyName.Notebook.NoteTaking.Core.Domain.Services
     public interface ICategoryRepository
     {
         ICategory Get(Guid id);
-        IList<ICategory> Get(string userId);
+        ICategory GetByName(string name);
+        IList<ICategory> GetAll();
         ICategory Add<ICategory>(ICategory category);
         ICategory Save<ICategory>(ICategory category);
         ICategory Delete(Guid id);
