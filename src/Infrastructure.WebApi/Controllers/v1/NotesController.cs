@@ -34,5 +34,21 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
             var noteDtos =_noteTaker.ListNotes();
             return Ok(noteDtos);
         }
+
+        /// <summary>
+        /// Create new Note.
+        /// </summary>
+        /// <param name="newNoteMessage">New Note Message.</param>
+        /// <response code="200">Note created.</response>
+        // POST api/v1/notes
+
+        [HttpPost, Route("")]
+        [ProducesResponseType(typeof(NoteDto), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 400)]
+        public IActionResult Post([FromBody]NewNoteMessage newNoteMessage)
+        {
+            var noteDto = _noteTaker.TakeNote(newNoteMessage);
+            return CreatedAtAction("Get", new { id = noteDto.Id }, noteDto);
+        }
     }
 }
