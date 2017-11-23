@@ -108,7 +108,10 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
 
         public IList<CategoryDto> ListCategories()
         {
-            throw new NotImplementedException();
+            var categories = _categoryRepository.GetAll();
+            if (null == categories) throw new NoteTakerException("No Categories found.");
+
+            return _mapper.Map<IList<CategoryDto>>(categories);
         }
 
         public CategoryDto CreateNewCategory(NewCategoryMessage newCategoryMessage)
