@@ -14,6 +14,7 @@ namespace Test.Unit.Infrastructure.Server
     {
         private INoteFactory _noteFactory;
         private ISubscriberFactory _subscriberFactory;
+        private ICategoryFactory _categoryFactory;
         private ICategoryRepository _categoryRepository;
         private IMapper _mapper;
 
@@ -23,6 +24,7 @@ namespace Test.Unit.Infrastructure.Server
             // ARRANGE
             _noteFactory = Substitute.For<INoteFactory>();
             _subscriberFactory = Substitute.For<ISubscriberFactory>();
+            _categoryFactory = Substitute.For<ICategoryFactory>();
             _categoryRepository = Substitute.For<ICategoryRepository>();
             _mapper = Substitute.For<IMapper>();
         }
@@ -32,6 +34,7 @@ namespace Test.Unit.Infrastructure.Server
         {
             _noteFactory = null;
             _subscriberFactory = null;
+            _categoryFactory = null;
             _categoryRepository = null;
             _mapper = null;
         }
@@ -42,6 +45,7 @@ namespace Test.Unit.Infrastructure.Server
             // ARRANGE
             _noteFactory.ClearReceivedCalls();
             _subscriberFactory.ClearReceivedCalls();
+            _categoryFactory.ClearReceivedCalls();
             _categoryRepository.ClearReceivedCalls();
             _mapper.ClearReceivedCalls();
         }
@@ -55,6 +59,7 @@ namespace Test.Unit.Infrastructure.Server
             var subjectUnderTest = new NoteTaker(
                 _noteFactory,
                 _subscriberFactory,
+                _categoryFactory,
                 _categoryRepository,
                 _mapper
             );
