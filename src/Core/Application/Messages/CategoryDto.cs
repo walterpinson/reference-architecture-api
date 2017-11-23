@@ -5,10 +5,10 @@ namespace CompanyName.Notebook.NoteTaking.Core.Application.Messages
 
     public class CategoryDto
     {
-        Guid Id { get; }
-        string Name { get; }
-        DateTime Created { get; }
-        IList<NoteDto> Notes { get; }
-        IList<SubscriberDto> Subscribers { get; }
+        public Guid Id { get; }
+        public string Name { get; }
+        public DateTime Created { get; }
+        public IList<NoteDto> Notes { get; }
+        public IList<SubscriberDto> Subscribers { get; }
     }
 }
