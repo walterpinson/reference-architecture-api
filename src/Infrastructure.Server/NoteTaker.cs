@@ -13,22 +13,106 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
     {
         private readonly INoteFactory _noteFactory;
         private readonly ISubscriberFactory _subscriberFactory;
+        private readonly ICategoryFactory _categoryFactory;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
 
         public NoteTaker(
             INoteFactory noteFactory,
             ISubscriberFactory subscriberFactory,
+            ICategoryFactory categoryFactory,
             ICategoryRepository categoryRepository,
             IMapper mapper
         )
         {
             _noteFactory = noteFactory ?? throw new ArgumentNullException(nameof(noteFactory));
             _subscriberFactory = subscriberFactory ?? throw new ArgumentNullException(nameof(subscriberFactory));
+            _categoryFactory = categoryFactory ?? throw new ArgumentNullException(nameof(categoryFactory));
             _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        
+
+        // Work with notes with regard for categories.
+        // In esseence these notes will be stored in the context of default category.
+
+        public NoteDto TakeNote(NewNoteMessage newNoteMessage)
+        {
+            var defaultCategoryName = "default";
+            var category = _categoryRepository.GetByName(defaultCategoryName);
+            if (null == category)
+            {
+                category = _categoryFactory.Create(
+                    "default",
+                    _noteFactory,
+                    _subscriberFactory
+                );
+                category = _categoryRepository.Add(category);
+            }
+
+            category = _categoryFactory.Build(category);
+
+            var note = category.AddNote(newNoteMessage.Text);
+            _categoryRepository.Save(category);
+
+            return _mapper.Map<NoteDto>(note);
+        }
+
+        public void DeleteNote(Guid noteId)
+        {
+            var defaultCategoryName = "default";
+            var category = _categoryRepository.GetByName(defaultCategoryName);
+            if (null == category)
+            {
+                category = _categoryFactory.Create(
+                    "default",
+                    _noteFactory,
+                    _subscriberFactory
+                );
+                category = _categoryRepository.Add(category);
+            }
+
+            category = _categoryFactory.Build(category);
+
+            category.RemoveNote(noteId);
+            _categoryRepository.Save(category);
+        }
+
+        public IList<NoteDto> ListNotes()
+        {
+            var defaultCategoryName = "default";
+            var category = _categoryRepository.GetByName(defaultCategoryName);
+            if (null == category)
+            {
+                category = _categoryFactory.Create(
+                    "default",
+                    _noteFactory,
+                    _subscriberFactory
+                );
+                category = _categoryRepository.Add(category);
+            }
+
+            category = _categoryFactory.Build(category);
+
+            var notes = category.Notes;
+
+            return _mapper.Map<IList<NoteDto>>(notes);
+        }
+
+        public CategoryDto CreateNewCategory(NewCategoryMessage newCategoryMessage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public CategoryDto GetCategoryDetail(Guid categoryId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<CategoryDto> ListCategories()
+        {
+            throw new NotImplementedException();
+        }
+
         public NoteDto ReadCategorizedNote(Guid categoryId, Guid noteId)
         {
             var category = _categoryRepository.Get(categoryId);
@@ -48,12 +132,31 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             return _mapper.Map<IList<NoteDto>>(category.Notes);
         }
 
-        public NoteDto TakeCategorizedNote(Guid categoryId, NewNoteMessage newNoteMessage)
+        public CategoryDto RemoveCategorizedNote(Guid categoryId, Guid noteId)
         {
             throw new NotImplementedException();
         }
 
-        public NoteDto TakeNote(NewNoteMessage newNoteMessage)
+        public CategoryDto RenameCategory(Guid categoryId, string newCategoryName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public NoteDto TakeCategorizedNote(Guid categoryId, NewNoteMessage newNoteMessage)
+        {
+            if (newNoteMessage == null)
+            {
+                throw new ArgumentNullException(nameof(newNoteMessage));
+            }
+
+            var category = _categoryRepository.Get(categoryId);
+            if (null == category) throw new NoteTakerException("Category note found.");
+
+            category.AddNote(newNoteMessage.Text);
+            var _categoryRepository.Save(category);
+        }
+
+        CategoryDto INoteTaker.TakeCategorizedNote(Guid categoryId, NewNoteMessage newNoteMessage)
         {
             throw new NotImplementedException();
         }
