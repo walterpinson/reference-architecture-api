@@ -50,5 +50,20 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
             var noteDto = _noteTaker.TakeNote(newNoteMessage);
             return CreatedAtAction("Get", new { id = noteDto.Id }, noteDto);
         }
+
+        /// <summary>
+        /// Delete the note.
+        /// </summary>
+        /// <param name="id">Note id.</param>
+        /// <response code="200">Note delete.</response>
+        // DELETE api/v1/notes/:id
+
+        [HttpPut, Route("{id:guid}")]
+        [ProducesResponseType(typeof(BadRequestResult), 400)]
+        public IActionResult Delete(Guid id)
+        {
+            _noteTaker.DeleteNote(id);
+            return NoContent();
+        }
     }
 }
