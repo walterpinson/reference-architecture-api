@@ -32,6 +32,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        //
         // Work with notes with regard for categories.
         // In esseence these notes will be stored in the context of default category.
 
@@ -98,17 +99,25 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             return _mapper.Map<IList<NoteDto>>(notes);
         }
 
+        //
+        // Work with categories
+
+        public IList<CategoryDto> ListCategories()
+        {
+            throw new NotImplementedException();
+        }
+
         public CategoryDto CreateNewCategory(NewCategoryMessage newCategoryMessage)
         {
             throw new NotImplementedException();
         }
 
-        public CategoryDto GetCategoryDetail(Guid categoryId)
+        public CategoryDto RenameCategory(Guid categoryId, string newCategoryName)
         {
             throw new NotImplementedException();
         }
 
-        public IList<CategoryDto> ListCategories()
+        public CategoryDto GetCategoryDetail(Guid categoryId)
         {
             throw new NotImplementedException();
         }
@@ -137,12 +146,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             throw new NotImplementedException();
         }
 
-        public CategoryDto RenameCategory(Guid categoryId, string newCategoryName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public NoteDto TakeCategorizedNote(Guid categoryId, NewNoteMessage newNoteMessage)
+        public CategoryDto TakeCategorizedNote(Guid categoryId, NewNoteMessage newNoteMessage)
         {
             if (newNoteMessage == null)
             {
@@ -153,12 +157,9 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             if (null == category) throw new NoteTakerException("Category note found.");
 
             category.AddNote(newNoteMessage.Text);
-            var _categoryRepository.Save(category);
-        }
+            category = _categoryRepository.Save(category);
 
-        CategoryDto INoteTaker.TakeCategorizedNote(Guid categoryId, NewNoteMessage newNoteMessage)
-        {
-            throw new NotImplementedException();
+            return _mapper.Map<CategoryDto>(category);
         }
     }
 }
