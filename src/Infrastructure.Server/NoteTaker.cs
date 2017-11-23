@@ -50,7 +50,11 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
                 category = _categoryRepository.Add(category);
             }
 
-            category = _categoryFactory.Build(category);
+            category = _categoryFactory.Build(
+                category,
+                _noteFactory,
+                _subscriberFactory
+            );
 
             var note = category.AddNote(newNoteMessage.Text);
             _categoryRepository.Save(category);
@@ -136,14 +140,20 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
         public IList<NoteDto> ReadCategorizedNotes(Guid categoryId)
         {
             var category = _categoryRepository.Get(categoryId);
-            if (null == category) throw new NoteTakerException("Category note found.");
+            if (null == category) throw new NoteTakerException("Category not found.");
 
             return _mapper.Map<IList<NoteDto>>(category.Notes);
         }
 
         public CategoryDto RemoveCategorizedNote(Guid categoryId, Guid noteId)
         {
-            throw new NotImplementedException();
+            var category = _categoryRepository.Get(categoryId);
+            if (null == category) throw new NoteTakerException("Category not found.");
+
+            category.RemoveNote(noteId);
+            category = _categoryRepository.Save(category);
+
+            return _mapper.Map<CategoryDto>(category);
         }
 
         public CategoryDto TakeCategorizedNote(Guid categoryId, NewNoteMessage newNoteMessage)
@@ -154,7 +164,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             }
 
             var category = _categoryRepository.Get(categoryId);
-            if (null == category) throw new NoteTakerException("Category note found.");
+            if (null == category) throw new NoteTakerException("Category not found.");
 
             category.AddNote(newNoteMessage.Text);
             category = _categoryRepository.Save(category);
