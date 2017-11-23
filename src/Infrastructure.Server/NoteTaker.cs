@@ -164,7 +164,10 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
 
         public CategoryDto GetCategoryDetail(Guid categoryId)
         {
-            throw new NotImplementedException();
+            var category = _categoryRepository.Get(categoryId);
+            if (null == category) throw new NoteTakerException("Category not found.");
+
+            return _mapper.Map<CategoryDto>(category);
         }
 
 
