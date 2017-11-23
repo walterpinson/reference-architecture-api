@@ -117,7 +117,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
         public IList<CategoryDto> ListCategories()
         {
             var categories = _categoryRepository.GetAll();
-            if (null == categories) throw new NoteTakerException("No Categories found.");
+            if (null == categories) throw new NotFoundException("No Categories found.");
 
             return _mapper.Map<IList<CategoryDto>>(categories);
         }
@@ -148,7 +148,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             }
 
             var category = _categoryRepository.Get(categoryId);
-            if (null == category) throw new NoteTakerException("Category not found.");
+            if (null == category) throw new NotFoundException("Category not found.");
 
             category = _categoryFactory.Build(
                 category,
@@ -165,7 +165,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
         public CategoryDto GetCategoryDetail(Guid categoryId)
         {
             var category = _categoryRepository.Get(categoryId);
-            if (null == category) throw new NoteTakerException("Category not found.");
+            if (null == category) throw new NotFoundException("Category not found.");
 
             return _mapper.Map<CategoryDto>(category);
         }
@@ -174,7 +174,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
         public CategoryDto RemoveCategorizedNote(Guid categoryId, Guid noteId)
         {
             var category = _categoryRepository.Get(categoryId);
-            if (null == category) throw new NoteTakerException("Category not found.");
+            if (null == category) throw new NotFoundException("Category not found.");
 
             category = _categoryFactory.Build(
                 category,
@@ -196,7 +196,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             }
 
             var category = _categoryRepository.Get(categoryId);
-            if (null == category) throw new NoteTakerException("Category not found.");
+            if (null == category) throw new NotFoundException("Category not found.");
 
             category = _categoryFactory.Build(
                 category,
