@@ -116,7 +116,20 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
 
         public CategoryDto CreateNewCategory(NewCategoryMessage newCategoryMessage)
         {
-            throw new NotImplementedException();
+            if (newCategoryMessage == null)
+            {
+                throw new ArgumentNullException(nameof(newCategoryMessage));
+            }
+
+            var category = _categoryFactory.Create(
+                "default",
+                _noteFactory,
+                _subscriberFactory
+            );
+
+            category = _categoryRepository.Add(category);
+            
+            return _mapper.Map<CategoryDto>(category);
         }
 
         public CategoryDto RenameCategory(Guid categoryId, string newCategoryName)
