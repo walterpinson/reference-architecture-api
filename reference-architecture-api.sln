@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.WebApi", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Data.MongoDb", "src\Infrastructure.Data.MongoDb\Infrastructure.Data.MongoDb.csproj", "{AAE4C823-8E20-480C-956E-7E212478EFC4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Notification.SendGrid", "src\Infrastructure.Notification.SendGrid\Infrastructure.Notification.SendGrid.csproj", "{2CE25B14-D97D-4DAA-BB42-16AD59DEA742}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,6 +106,18 @@ Global
 		{AAE4C823-8E20-480C-956E-7E212478EFC4}.Release|x64.Build.0 = Release|x64
 		{AAE4C823-8E20-480C-956E-7E212478EFC4}.Release|x86.ActiveCfg = Release|x86
 		{AAE4C823-8E20-480C-956E-7E212478EFC4}.Release|x86.Build.0 = Release|x86
+		{2CE25B14-D97D-4DAA-BB42-16AD59DEA742}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CE25B14-D97D-4DAA-BB42-16AD59DEA742}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CE25B14-D97D-4DAA-BB42-16AD59DEA742}.Debug|x64.ActiveCfg = Debug|x64
+		{2CE25B14-D97D-4DAA-BB42-16AD59DEA742}.Debug|x64.Build.0 = Debug|x64
+		{2CE25B14-D97D-4DAA-BB42-16AD59DEA742}.Debug|x86.ActiveCfg = Debug|x86
+		{2CE25B14-D97D-4DAA-BB42-16AD59DEA742}.Debug|x86.Build.0 = Debug|x86
+		{2CE25B14-D97D-4DAA-BB42-16AD59DEA742}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CE25B14-D97D-4DAA-BB42-16AD59DEA742}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CE25B14-D97D-4DAA-BB42-16AD59DEA742}.Release|x64.ActiveCfg = Release|x64
+		{2CE25B14-D97D-4DAA-BB42-16AD59DEA742}.Release|x64.Build.0 = Release|x64
+		{2CE25B14-D97D-4DAA-BB42-16AD59DEA742}.Release|x86.ActiveCfg = Release|x86
+		{2CE25B14-D97D-4DAA-BB42-16AD59DEA742}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8367D4D3-04D3-4200-9387-087E613B3D81} = {0237CC10-AE50-448F-B72B-9A921AB2A4B6}
@@ -112,5 +126,6 @@ Global
 		{1DB5281C-CDB6-4E90-9140-F5F2C22BE3C4} = {DCC32A2D-CE34-41B6-84FD-A2931EA4C76D}
 		{54855C22-B622-4993-8512-EBD433490248} = {0237CC10-AE50-448F-B72B-9A921AB2A4B6}
 		{AAE4C823-8E20-480C-956E-7E212478EFC4} = {0237CC10-AE50-448F-B72B-9A921AB2A4B6}
+		{2CE25B14-D97D-4DAA-BB42-16AD59DEA742} = {0237CC10-AE50-448F-B72B-9A921AB2A4B6}
 	EndGlobalSection
 EndGlobal
