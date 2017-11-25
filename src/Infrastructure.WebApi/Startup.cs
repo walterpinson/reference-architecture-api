@@ -9,6 +9,7 @@
     using CompanyName.Notebook.NoteTaking.Core.Application.Services;
     using CompanyName.Notebook.NoteTaking.Core.Domain.Factories;
     using CompanyName.Notebook.NoteTaking.Core.Domain.Services;
+    using CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb;
     using CompanyName.Notebook.NoteTaking.Infrastructure.Server;
     using CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Exceptions;
     using Microsoft.AspNetCore.Builder;
