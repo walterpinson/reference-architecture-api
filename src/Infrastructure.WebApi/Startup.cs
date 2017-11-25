@@ -53,7 +53,7 @@
             services.AddSingleton<ICategoryFactory, CategoryFactory>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<INoteTaker, NoteTaker>();
-            services.AddTransient<ISubscriber, Subscriber>();
+            services.AddTransient<IRegistrar, Registrar>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
