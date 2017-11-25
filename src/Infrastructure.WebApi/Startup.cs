@@ -7,6 +7,8 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using CompanyName.Notebook.NoteTaking.Core.Application.Services;
+    using CompanyName.Notebook.NoteTaking.Core.Domain.Factories;
+    using CompanyName.Notebook.NoteTaking.Core.Domain.Services;
     using CompanyName.Notebook.NoteTaking.Infrastructure.Server;
     using CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Exceptions;
     using Microsoft.AspNetCore.Builder;
@@ -45,6 +47,10 @@
             });
 
             // Add Application services.
+            services.AddSingleton<INoteFactory, NoteFactory>();
+            services.AddSingleton<ISubscriberFactory, SubscriberFactory>();
+            services.AddSingleton<ICategoryFactory, CategoryFactory>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<INoteTaker, NoteTaker>();
             services.AddTransient<ISubscriber, Subscriber>();
         }
