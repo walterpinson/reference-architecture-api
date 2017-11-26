@@ -13,6 +13,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             // Map application messages to domain models
             CreateMap<Note, NoteDto>().ReverseMap();
             CreateMap<Subscriber, SubscriberDto>().ReverseMap();
+            CreateMap<Category, CategoryDto>().ReverseMap();
         }
     }
 }
