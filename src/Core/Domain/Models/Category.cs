@@ -10,11 +10,11 @@ namespace CompanyName.Notebook.NoteTaking.Core.Domain.Models
         private readonly INoteFactory _noteFactory;
         private readonly ISubscriberFactory _subscriberFactory;
 
-        public Guid Id { get; protected set; }
-        public string Name { get; protected set; }
-        public DateTime Created { get; protected set; }
-        public IList<INote> Notes { get; protected set; }
-        public IList<ISubscriber> Subscribers { get; protected set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public DateTime Created { get; set; }
+        public IList<INote> Notes { get; set; }
+        public IList<ISubscriber> Subscribers { get; set; }
 
         public Category()
         {
@@ -28,6 +28,26 @@ namespace CompanyName.Notebook.NoteTaking.Core.Domain.Models
 
             Created = DateTime.UtcNow;
         }
+
+        public Category(
+            Guid id,
+            string name,
+            DateTime created,
+            IList<INote> notes,
+            IList<ISubscriber> subscribers,
+            INoteFactory noteFactory,
+            ISubscriberFactory subscriberFactory
+        )
+        {
+            Id = id;
+            Name = (!string.IsNullOrEmpty(name)) ? name : throw new ArgumentException("New Note must have name.", nameof(name));
+            Created = created;
+            Notes = notes ?? throw new ArgumentNullException(nameof(notes));
+            Subscribers = subscribers ?? throw new ArgumentNullException(nameof(subscribers));
+             _noteFactory = noteFactory ?? throw new ArgumentNullException(nameof(noteFactory));
+            _subscriberFactory = subscriberFactory ?? throw new ArgumentNullException(nameof(subscriberFactory));
+       }
+
 
         public INote AddNote(string text)
         {

@@ -13,7 +13,11 @@ namespace CompanyName.Notebook.NoteTaking.Core.Domain.Factories
             if (subscriberFactory == null) throw new ArgumentNullException(nameof(subscriberFactory));
 
             return new Category(
-                category.Name, 
+                category.Id,
+                category.Name,
+                category.Created,
+                category.Notes,
+                category.Subscribers, 
                 noteFactory,
                 subscriberFactory
             );
