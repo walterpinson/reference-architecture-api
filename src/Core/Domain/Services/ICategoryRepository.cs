@@ -11,6 +11,6 @@ namespace CompanyName.Notebook.NoteTaking.Core.Domain.Services
         IList<ICategory> GetAll();
         ICategory Add(ICategory category);
         ICategory Save(ICategory category);
-        ICategory Delete(Guid id);
+        void Delete(Guid id);
     }
 }
