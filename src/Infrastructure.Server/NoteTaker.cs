@@ -130,7 +130,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             }
 
             var category = _categoryFactory.Create(
-                "default",
+                newCategoryMessage.Name,
                 _noteFactory,
                 _subscriberFactory
             );
