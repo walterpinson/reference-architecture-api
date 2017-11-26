@@ -14,8 +14,8 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb
                 Id = Guid.NewGuid(),
                 Name = category.Name,
                 Created = category.Created,
-                Notes = new List<INote>(category.Notes),
-                Subscribers = new List<ISubscriber>(category.Subscribers)
+                Notes = category.Notes,
+                Subscribers = category.Subscribers
             };
             Console.WriteLine($"Add new Category\n${newCategory}");
             return newCategory;
