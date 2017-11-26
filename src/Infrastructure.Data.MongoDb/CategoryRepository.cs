@@ -17,33 +17,79 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb
                 Notes = category.Notes,
                 Subscribers = category.Subscribers
             };
-            Console.WriteLine($"Add new Category\n${newCategory}");
+            Console.WriteLine($"Mock CategoryRepository.Add():\n{newCategory}");
             return newCategory;
         }
 
-        public ICategory Delete(Guid id)
+        public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Mock CategoryRepository.Delete({id}).");
         }
 
         public ICategory Get(Guid id)
         {
-            throw new NotImplementedException();
+            var category = new Category()
+            {
+                Id = id,
+                Name = "1 Ton Trucks",
+                Created = DateTime.UtcNow,
+                Notes = null,
+                Subscribers = null
+            };
+            Console.WriteLine($"Mock CategoryRepository.Get({id}):\n{category}");
+            return category;
         }
 
         public IList<ICategory> GetAll()
         {
-            throw new NotImplementedException();
+            var categories = new List<ICategory>();
+            categories.Add(new Category()
+            {
+                Id = Guid.NewGuid(),
+                Name = "1 Ton Trucks",
+                Created = DateTime.UtcNow,
+                Notes = null,
+                Subscribers = null
+            });
+            categories.Add(new Category()
+            {
+                Id = Guid.NewGuid(),
+                Name = "SUVs",
+                Created = DateTime.UtcNow,
+                Notes = null,
+                Subscribers = null
+            });
+            categories.Add(new Category()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Convertibles",
+                Created = DateTime.UtcNow,
+                Notes = null,
+                Subscribers = null
+            });
+
+            Console.WriteLine($"Mock CategoryRepository.GetAll():\n{categories}");
+            return categories;
         }
 
         public ICategory GetByName(string name)
         {
-            throw new NotImplementedException();
+            var category = new Category()
+            {
+                Id = Guid.NewGuid(),
+                Name = name,
+                Created = DateTime.UtcNow,
+                Notes = null,
+                Subscribers = null
+            };
+            Console.WriteLine($"Mock CategoryRepository.GetByName({name}):\n{category}");
+            return category;
         }
 
         public ICategory Save(ICategory category)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Mock CategoryRepository.Save():\n{category}");
+            return category;
         }
     }
 }
