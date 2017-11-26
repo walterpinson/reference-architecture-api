@@ -7,9 +7,18 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb
 
     public class CategoryRepository : ICategoryRepository
     {
-        public ICategory Add<ICategory>(ICategory category)
+        public ICategory Add(ICategory category)
         {
-            throw new NotImplementedException();
+            var newCategory = new Category()
+            {
+                Id = Guid.NewGuid(),
+                Name = category.Name,
+                Created = category.Created,
+                Notes = new List<INote>(category.Notes),
+                Subscribers = new List<ISubscriber>(category.Subscribers)
+            };
+            Console.WriteLine($"Add new Category\n${newCategory}");
+            return newCategory;
         }
 
         public ICategory Delete(Guid id)
@@ -32,7 +41,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb
             throw new NotImplementedException();
         }
 
-        public ICategory Save<ICategory>(ICategory category)
+        public ICategory Save(ICategory category)
         {
             throw new NotImplementedException();
         }
