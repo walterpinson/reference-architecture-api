@@ -42,8 +42,8 @@ namespace CompanyName.Notebook.NoteTaking.Core.Domain.Models
             Id = id;
             Name = (!string.IsNullOrEmpty(name)) ? name : throw new ArgumentException("New Note must have name.", nameof(name));
             Created = created;
-            Notes = notes ?? throw new ArgumentNullException(nameof(notes));
-            Subscribers = subscribers ?? throw new ArgumentNullException(nameof(subscribers));
+            Notes = notes;
+            Subscribers = subscribers;
              _noteFactory = noteFactory ?? throw new ArgumentNullException(nameof(noteFactory));
             _subscriberFactory = subscriberFactory ?? throw new ArgumentNullException(nameof(subscriberFactory));
        }
