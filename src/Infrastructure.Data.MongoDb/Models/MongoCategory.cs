@@ -1,4 +1,4 @@
-namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb
+namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb.Models
 {
     using System;
     using CompanyName.Notebook.NoteTaking.Core.Domain.Models;
