@@ -82,5 +82,20 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
             var categoryDto = _noteTaker.RenameCategory(id, updatedCategory.Name);
             return CreatedAtAction("Get", new { id = categoryDto.Id }, categoryDto);
         }
+
+        /// <summary>
+        /// Delete the Category.
+        /// </summary>
+        /// <param name="id">Category id.</param>
+        /// <response code="200">Category delete.</response>
+        // DELETE api/v1/categories/:id
+
+        [HttpDelete, Route("{id:guid}")]
+        [ProducesResponseType(typeof(BadRequestResult), 400)]
+        public IActionResult Delete(Guid id)
+        {
+            _noteTaker.RemoveCategory(id);
+            return NoContent();
+        }
     }
 }
