@@ -28,7 +28,7 @@ namespace Test.Unit.Core.Domain.Models
         public void DoesThrowArgumentExceptionDefaultConstructor()
         {
             // ARRANGE
-            var expectedExceptionMessage = "New Note must have text.\nParameter name: text";
+            var expectedExceptionMessage = $"New Note must have text.{Environment.NewLine}Parameter name: text";
             
             // ACT
             // ASSERT

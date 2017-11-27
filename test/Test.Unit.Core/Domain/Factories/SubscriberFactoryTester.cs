@@ -42,7 +42,7 @@ namespace Test.Unit.Core.Domain.Factories
         public void CreateThrowsArgumentExceptionWhenEmailNull()
         {
             // ARRANGE
-            var expectedExceptionMessage = "Must have email address to create subscriber.\nParameter name: emailAddress";
+            var expectedExceptionMessage = $"Must have email address to create subscriber.{Environment.NewLine}Parameter name: emailAddress";
             var subjectUnderTest = new SubscriberFactory();
 
             // ACT

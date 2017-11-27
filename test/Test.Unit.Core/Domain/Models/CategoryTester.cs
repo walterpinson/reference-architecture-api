@@ -69,7 +69,7 @@ namespace Test.Unit.Core.Domain.Models
         public void ConstructorThrowsArgumentExceptionWhenNameNull()
         {
             // ARRANGE
-            var expectedExceptionMessage = "New Note must have name.\nParameter name: name";
+            var expectedExceptionMessage = $"New Note must have name.{Environment.NewLine}Parameter name: name";
 
             // ACT
             // ASSERT
@@ -84,7 +84,7 @@ namespace Test.Unit.Core.Domain.Models
         {
             // ARRANGE
             string expectedName = "Verbose Notes";
-            var expectedExceptionMessage = "Value cannot be null.\nParameter name: noteFactory";
+            var expectedExceptionMessage = $"Value cannot be null.{Environment.NewLine}Parameter name: noteFactory";
 
             // ACT
             // ASSERT
@@ -99,7 +99,7 @@ namespace Test.Unit.Core.Domain.Models
         {
             // ARRANGE
             string expectedName = "Verbose Notes";
-            var expectedExceptionMessage = "Value cannot be null.\nParameter name: subscriberFactory";
+            var expectedExceptionMessage = $"Value cannot be null.{Environment.NewLine}Parameter name: subscriberFactory";
 
             // ACT
             // ASSERT
@@ -137,7 +137,7 @@ namespace Test.Unit.Core.Domain.Models
             // ARRANGE
             var expectedName = "Verbose Notes";
             string expectedNoteText = null;
-            var expectedExceptionMessage = "Note text required.\nParameter name: text";
+            var expectedExceptionMessage = $"Note text required.{Environment.NewLine}Parameter name: text";
 
             var subjectUnderTest = new Category(expectedName, _noteFactory, _subscriberFactory);
 
