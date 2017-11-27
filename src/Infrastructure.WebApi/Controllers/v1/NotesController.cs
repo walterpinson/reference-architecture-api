@@ -62,7 +62,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         [ProducesResponseType(typeof(BadRequestResult), 400)]
         public IActionResult Delete(Guid id)
         {
-            _noteTaker.DeleteNote(id);
+            _noteTaker.RemoveNote(id);
             return NoContent();
         }
     }
