@@ -62,7 +62,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             return _mapper.Map<NoteDto>(note);
         }
 
-        public void DeleteNote(Guid noteId)
+        public void RemoveNote(Guid noteId)
         {
             var defaultCategoryName = "default";
             var category = _categoryRepository.GetByName(defaultCategoryName);
@@ -170,7 +170,13 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             return _mapper.Map<CategoryDto>(category);
         }
 
+        public void RemoveCategory(Guid categoryId)
+        {
+            throw new NotImplementedException();
+        }
 
+        // Work with categorized notes
+        
         public CategoryDto RemoveCategorizedNote(Guid categoryId, Guid noteId)
         {
             var category = _categoryRepository.Get(categoryId);
