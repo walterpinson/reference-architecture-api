@@ -58,7 +58,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         /// <response code="200">Note delete.</response>
         // DELETE api/v1/notes/:id
 
-        [HttpPut, Route("{id:guid}")]
+        [HttpDelete, Route("{id:guid}")]
         [ProducesResponseType(typeof(BadRequestResult), 400)]
         public IActionResult Delete(Guid id)
         {
