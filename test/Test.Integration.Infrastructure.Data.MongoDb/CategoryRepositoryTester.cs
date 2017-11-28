@@ -64,12 +64,106 @@ namespace Test.Integration.Infrastructure.Data.MongoDb
             Assert.That(result.Id, Is.Not.EqualTo(Guid.Empty));
         }
 
+        [Test]
+        public void CanDeleteCategory()
+        {
+            // ARRANGE
+            var connectionString = _config.GetConnectionString("NoteTakerTest");
+            ICategoryRepository  subjectUnderTest = new CategoryRepository(connectionString, _mapper);
+
+            var category = MakeCategory();
+            category = subjectUnderTest.Add(category);
+
+            // ACT
+            subjectUnderTest.Delete(category.Id);
+
+            // ASSERT
+            Assert.That(subjectUnderTest.Get(category.Id), Is.Null);
+        }
+
+        [Test]
+        public void CanGetCategoryById()
+        {
+            // ARRANGE
+            var connectionString = _config.GetConnectionString("NoteTakerTest");
+            ICategoryRepository  subjectUnderTest = new CategoryRepository(connectionString, _mapper);
+
+            var category = MakeCategory();
+            category = subjectUnderTest.Add(category);
+
+            // ACT
+            var result = subjectUnderTest.Get(category.Id);
+
+            // ASSERT
+            Assert.That(result.Id, Is.EqualTo(category.Id));
+        }
+
+        [Test]
+        public void CanGetCategoryByName()
+        {
+            // ARRANGE
+            var connectionString = _config.GetConnectionString("NoteTakerTest");
+            ICategoryRepository  subjectUnderTest = new CategoryRepository(connectionString, _mapper);
+
+            var expectedName = Guid.NewGuid().ToString();
+            var category = MakeCategory(expectedName);
+            category = subjectUnderTest.Add(category);
+
+            // ACT
+            var result = subjectUnderTest.GetByName(expectedName);
+
+            // ASSERT
+            Assert.That(result.Id, Is.EqualTo(category.Id));
+        }
+
+        [Test]
+        public void CanModifyCategory()
+        {
+            // ARRANGE
+            var connectionString = _config.GetConnectionString("NoteTakerTest");
+            ICategoryRepository  subjectUnderTest = new CategoryRepository(connectionString, _mapper);
+
+            var expectedName = "Precious Metals";
+            var category = MakeCategory();
+            category = subjectUnderTest.Add(category);
+            category.ChangeName(expectedName);
+
+
+            // ACT
+            var result = subjectUnderTest.Save(category);
+
+            // ASSERT
+            Assert.That(result.Name, Is.EqualTo(expectedName));
+        }
+
+        [Test]
+        public void CanGetAllCategories()
+        {
+            // ARRANGE
+            var connectionString = _config.GetConnectionString("NoteTakerTest");
+            ICategoryRepository  subjectUnderTest = new CategoryRepository(connectionString, _mapper);
+
+            var category = MakeCategory();
+            category = subjectUnderTest.Add(category);
+
+            // ACT
+            var result = subjectUnderTest.GetAll();
+
+            // ASSERT
+            Assert.That(result, Is.InstanceOf(typeof(IList<ICategory>)));
+        }
+
         // Private Helper Methods
         ///////////////////////////////////////////////
-        private ICategory MakeCategory()
+        private ICategory MakeCategory(string name = null)
         {
+            if(string.IsNullOrEmpty(name))
+            {
+                name = "Sports Utility Vehicles";
+            }
+
             var category = new Category {
-                Name = "Sports Utility Vehicles",
+                Name = name,
                 Created = DateTime.UtcNow,
                 Notes = new List<INote>(new Note[] {new Note("I'm taking note of this note.")}),
                 Subscribers = new List<ISubscriber>(new Subscriber[] { new Subscriber(emailAddress: "mickey.mouse@disney.com")})
