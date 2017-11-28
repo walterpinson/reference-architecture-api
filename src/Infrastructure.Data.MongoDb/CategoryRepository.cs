@@ -1,6 +1,7 @@
 namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb
 {
     using System;
+    using System.Linq;
     using System.Collections.Generic;
     using AutoMapper;
     using CompanyName.Notebook.NoteTaking.Core.Domain.Models;
@@ -29,22 +30,28 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb
 
         public ICategory Get(Guid id)
         {
-            throw new NotImplementedException();
+            var mongoCategory = this.GetById(id);
+            return (null == mongoCategory) ? null : _mapper.Map<ICategory>(mongoCategory);
         }
 
         public IList<ICategory> GetAll()
         {
-            throw new NotImplementedException();
+            var mongoCategories = this.collection;
+            return (null == mongoCategories) ? null : _mapper.Map<IList<ICategory>>(mongoCategories);
         }
 
         public ICategory GetByName(string name)
         {
-            throw new NotImplementedException();
+            var mongoCategory = this.collection.Find(m => m.Name == name).First();
+            return (null == mongoCategory) ? null : _mapper.Map<ICategory>(mongoCategory);
         }
 
         public ICategory Save(ICategory category)
         {
-            throw new NotImplementedException();
+            var mongoCategory = _mapper.Map<MongoCategory>(category);
+            var outCategory = _mapper.Map<ICategory>(base.Update(mongoCategory));
+
+            return outCategory;
         }
     }
 }
