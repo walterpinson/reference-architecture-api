@@ -36,7 +36,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb
 
         public IList<ICategory> GetAll()
         {
-            var mongoCategories = this.collection;
+            var mongoCategories = this.collection.AsQueryable().ToList();
             return (null == mongoCategories) ? null : _mapper.Map<IList<ICategory>>(mongoCategories);
         }
 
