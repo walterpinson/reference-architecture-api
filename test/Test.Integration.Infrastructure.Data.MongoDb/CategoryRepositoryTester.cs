@@ -105,7 +105,7 @@ namespace Test.Integration.Infrastructure.Data.MongoDb
             var connectionString = _config.GetConnectionString("NoteTakerTest");
             ICategoryRepository  subjectUnderTest = new CategoryRepository(connectionString, _mapper);
 
-            var expectedName = Guid.NewGuid().ToString();
+            var expectedName = $"Super Cars {Guid.NewGuid().ToString()}";
             var category = MakeCategory(expectedName);
             category = subjectUnderTest.Add(category);
 
