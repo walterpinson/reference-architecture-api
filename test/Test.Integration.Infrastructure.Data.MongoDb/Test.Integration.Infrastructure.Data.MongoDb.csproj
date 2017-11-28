@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <IsPackable>false</IsPackable>
     <NoWarn>$(NoWarn);NU1603</NoWarn>
   </PropertyGroup>
 
@@ -16,6 +17,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Infrastructure.Data.MongoDb\Infrastructure.Data.MongoDb.csproj" />
     <ProjectReference Include="..\..\src\Core\Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="appsettings.json" CopyToOutputDirectory="Always" />
   </ItemGroup>
 
 </Project>
