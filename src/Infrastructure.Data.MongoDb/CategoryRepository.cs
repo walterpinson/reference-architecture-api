@@ -21,7 +21,10 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb
 
         public ICategory Add(ICategory category)
         {
-            throw new NotImplementedException();
+            var mongoCategory = _mapper.Map<MongoCategory>(category);
+            var outCategory = _mapper.Map<ICategory>(base.Add(mongoCategory));
+
+            return outCategory;
         }
 
         public ICategory Get(Guid id)
