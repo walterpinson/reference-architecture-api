@@ -42,7 +42,7 @@ namespace Test.Unit.Core.Domain.Factories
         public void CreateThrowsArgumentExceptionWhenTextNull()
         {
             // ARRANGE
-            var expectedExceptionMessage = "Must have text to create note.\nParameter name: text";
+            var expectedExceptionMessage = $"Must have text to create note.{Environment.NewLine}Parameter name: text";
             var subjectUnderTest = new NoteFactory();
 
             // ACT

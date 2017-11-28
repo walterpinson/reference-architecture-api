@@ -11,8 +11,8 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
         public MessageMappingProfile()
         {
             // Map application messages to domain models
-            CreateMap<Note, NoteDto>().ReverseMap();
-            CreateMap<Subscriber, SubscriberDto>().ReverseMap();
+            CreateMap<INote, NoteDto>().ReverseMap();
+            CreateMap<ISubscriber, SubscriberDto>().ReverseMap();
             CreateMap<Category, CategoryDto>().ReverseMap();
         }
     }
