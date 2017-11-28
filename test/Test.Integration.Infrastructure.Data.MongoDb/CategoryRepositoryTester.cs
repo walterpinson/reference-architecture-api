@@ -7,6 +7,7 @@ namespace Test.Integration.Infrastructure.Data.MongoDb
     using CompanyName.Notebook.NoteTaking.Core.Domain.Services;
     using CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb;
     using Microsoft.Extensions.Configuration;
+    using MongoDB.Driver;
     using NUnit.Framework;
 
     [TestFixture]
@@ -40,6 +41,21 @@ namespace Test.Integration.Infrastructure.Data.MongoDb
 
             // ACT
             var subjectUnderTest = new CategoryRepository(connectionString, _mapper);
+
+            // ASSERT
+            Assert.That(subjectUnderTest, Is.Not.Null);
+            Assert.That(subjectUnderTest, Is.InstanceOf(typeof(ICategoryRepository)));
+        }
+
+        [Test]
+        public void CanInstantiateCategoryRepositoryWithMongoUrl()
+        {
+            // ARRANGE
+            var connectionString = _config.GetConnectionString("NoteTakerTest");
+            var mongoUrl = new MongoUrl(connectionString);
+
+            // ACT
+            var subjectUnderTest = new CategoryRepository(mongoUrl, _mapper);
 
             // ASSERT
             Assert.That(subjectUnderTest, Is.Not.Null);
