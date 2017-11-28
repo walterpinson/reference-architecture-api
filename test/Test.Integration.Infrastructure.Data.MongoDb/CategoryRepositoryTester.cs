@@ -69,7 +69,6 @@ namespace Test.Integration.Infrastructure.Data.MongoDb
         private ICategory MakeCategory()
         {
             var category = new Category {
-                Id = Guid.NewGuid(),
                 Name = "Sports Utility Vehicles",
                 Created = DateTime.UtcNow,
                 Notes = new List<INote>(new Note[] {new Note("I'm taking note of this note.")}),
