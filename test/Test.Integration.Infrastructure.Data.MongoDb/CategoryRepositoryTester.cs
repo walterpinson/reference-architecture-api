@@ -6,8 +6,10 @@ namespace Test.Integration.Infrastructure.Data.MongoDb
     using CompanyName.Notebook.NoteTaking.Core.Domain.Models;
     using CompanyName.Notebook.NoteTaking.Core.Domain.Services;
     using CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb;
+    using CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb.Models;
     using Microsoft.Extensions.Configuration;
     using MongoDB.Driver;
+    using MongoRepository.NetCore;
     using NUnit.Framework;
 
     [TestFixture]
@@ -15,6 +17,9 @@ namespace Test.Integration.Infrastructure.Data.MongoDb
     {
         private IConfigurationRoot _config;
         private IMapper _mapper;
+        private string _connectionString;
+        private MongoRepositoryManager<MongoCategory, Guid> _collectionManager;
+
         
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -31,16 +36,39 @@ namespace Test.Integration.Infrastructure.Data.MongoDb
                 .AddJsonFile($"appsettings.{environmentName}.json", true, true)
                 .AddEnvironmentVariables();
             _config = builder.Build();
+
+            _connectionString = _config.GetConnectionString("NoteTakerTest");
+            _collectionManager = new MongoRepositoryManager<MongoCategory, Guid>(_connectionString, "Categories");
+            _collectionManager.DropDatabase();
+        }
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            // Drop the database
+            _collectionManager.DropDatabase();
+
+            // Clean up memory; send to garbage collector
+            _mapper = null;
+            _config = null;
+            _connectionString = null;
+            _collectionManager = null;
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
+            // Drop the Categories collection
+            _collectionManager.Drop();
         }
 
         [Test]
         public void CanInstantiateCategoryRepository()
         {
             // ARRANGE
-            var connectionString = _config.GetConnectionString("NoteTakerTest");
 
             // ACT
-            var subjectUnderTest = new CategoryRepository(connectionString, _mapper);
+            var subjectUnderTest = new CategoryRepository(_connectionString, _mapper);
 
             // ASSERT
             Assert.That(subjectUnderTest, Is.Not.Null);
@@ -51,8 +79,7 @@ namespace Test.Integration.Infrastructure.Data.MongoDb
         public void CanInstantiateCategoryRepositoryWithMongoUrl()
         {
             // ARRANGE
-            var connectionString = _config.GetConnectionString("NoteTakerTest");
-            var mongoUrl = new MongoUrl(connectionString);
+            var mongoUrl = new MongoUrl(_connectionString);
 
             // ACT
             var subjectUnderTest = new CategoryRepository(mongoUrl, _mapper);
@@ -66,8 +93,7 @@ namespace Test.Integration.Infrastructure.Data.MongoDb
         public void CanAddCategory()
         {
             // ARRANGE
-            var connectionString = _config.GetConnectionString("NoteTakerTest");
-            ICategoryRepository  subjectUnderTest = new CategoryRepository(connectionString, _mapper);
+            ICategoryRepository  subjectUnderTest = new CategoryRepository(_connectionString, _mapper);
 
             var category = MakeCategory();
 
@@ -84,8 +110,7 @@ namespace Test.Integration.Infrastructure.Data.MongoDb
         public void CanDeleteCategory()
         {
             // ARRANGE
-            var connectionString = _config.GetConnectionString("NoteTakerTest");
-            ICategoryRepository  subjectUnderTest = new CategoryRepository(connectionString, _mapper);
+            ICategoryRepository  subjectUnderTest = new CategoryRepository(_connectionString, _mapper);
 
             var category = MakeCategory();
             category = subjectUnderTest.Add(category);
@@ -101,8 +126,7 @@ namespace Test.Integration.Infrastructure.Data.MongoDb
         public void CanGetCategoryById()
         {
             // ARRANGE
-            var connectionString = _config.GetConnectionString("NoteTakerTest");
-            ICategoryRepository  subjectUnderTest = new CategoryRepository(connectionString, _mapper);
+            ICategoryRepository  subjectUnderTest = new CategoryRepository(_connectionString, _mapper);
 
             var category = MakeCategory();
             category = subjectUnderTest.Add(category);
@@ -118,8 +142,7 @@ namespace Test.Integration.Infrastructure.Data.MongoDb
         public void CanGetCategoryByName()
         {
             // ARRANGE
-            var connectionString = _config.GetConnectionString("NoteTakerTest");
-            ICategoryRepository  subjectUnderTest = new CategoryRepository(connectionString, _mapper);
+            ICategoryRepository  subjectUnderTest = new CategoryRepository(_connectionString, _mapper);
 
             var expectedName = $"Super Cars {Guid.NewGuid().ToString()}";
             var category = MakeCategory(expectedName);
@@ -136,8 +159,7 @@ namespace Test.Integration.Infrastructure.Data.MongoDb
         public void CanModifyCategory()
         {
             // ARRANGE
-            var connectionString = _config.GetConnectionString("NoteTakerTest");
-            ICategoryRepository  subjectUnderTest = new CategoryRepository(connectionString, _mapper);
+            ICategoryRepository  subjectUnderTest = new CategoryRepository(_connectionString, _mapper);
 
             var expectedName = "Precious Metals";
             var category = MakeCategory();
@@ -156,8 +178,7 @@ namespace Test.Integration.Infrastructure.Data.MongoDb
         public void CanGetAllCategories()
         {
             // ARRANGE
-            var connectionString = _config.GetConnectionString("NoteTakerTest");
-            ICategoryRepository  subjectUnderTest = new CategoryRepository(connectionString, _mapper);
+            ICategoryRepository  subjectUnderTest = new CategoryRepository(_connectionString, _mapper);
 
             var category = MakeCategory();
             category = subjectUnderTest.Add(category);
