@@ -28,7 +28,7 @@ namespace Test.Unit.Infrastructure.WebApi.Controllers
         }
 
         [Test]
-        public void CanGetCategories()
+        public void CanGetAllCategories()
         {
             // ARRANGE
             var noteTaker = Substitute.For<INoteTaker>();
@@ -45,6 +45,50 @@ namespace Test.Unit.Infrastructure.WebApi.Controllers
             // ASSERT
             Assert.That(result, Is.Not.Null);
             noteTaker.Received(1).ListCategories();
+        }
+
+        [Test]
+        public void CanGetCategory()
+        {
+            // ARRANGE
+            var noteTaker = Substitute.For<INoteTaker>();
+            var logger = Substitute.For<ILogger<CategoriesController>>();
+            var subjectUnderTest = new CategoriesController(noteTaker, logger);
+
+            var expectedCategoryDto = Substitute.For<CategoryDto>();
+            var expectedId = Guid.NewGuid();
+
+            noteTaker.GetCategoryDetail(expectedId).Returns(expectedCategoryDto);
+
+            // ACT
+            var result = subjectUnderTest.Get(expectedId);
+
+            // ASSERT
+            Assert.That(result, Is.Not.Null);
+            noteTaker.Received(1).GetCategoryDetail(expectedId);
+        }
+
+        [Test]
+        public void CanRenameCategory()
+        {
+            // ARRANGE
+            var noteTaker = Substitute.For<INoteTaker>();
+            var logger = Substitute.For<ILogger<CategoriesController>>();
+            var subjectUnderTest = new CategoriesController(noteTaker, logger);
+
+            var expectedId = Guid.NewGuid();
+            var expectedNewName = "Red Dwarfs";
+            var expectedUpdatedCategoryDto = Substitute.For<CategoryDto>();
+            expectedUpdatedCategoryDto.Name = expectedNewName;
+
+            noteTaker.RenameCategory(expectedId, expectedNewName).Returns(expectedUpdatedCategoryDto);
+
+            // ACT
+            var result = subjectUnderTest.Put(expectedId, expectedUpdatedCategoryDto);
+
+            // ASSERT
+            Assert.That(result, Is.Not.Null);
+            noteTaker.Received(1).RenameCategory(expectedId, expectedNewName);
         }
 
         [Test]
