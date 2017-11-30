@@ -28,7 +28,7 @@ namespace Test.Unit.Infrastructure.WebApi.Controllers
             Assert.That(subjectUnderTest, Is.TypeOf(typeof(NotesController)));
         }
 
-         [Test]
+        [Test]
         public void CanGetNotes()
         {
             // ARRANGE
@@ -48,7 +48,7 @@ namespace Test.Unit.Infrastructure.WebApi.Controllers
             noteTaker.Received(1).ListNotes();
         }
 
-         [Test]
+        [Test]
         public void CanCreateNote()
         {
             // ARRANGE
