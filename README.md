@@ -30,6 +30,7 @@ dotnet run -p src/Infrastructure.WebApi/
 ```bash
 curl http://localhost:5000/api/values
 ```
+Or you can just copy and paste the above URL your browsers address bar.
 
 ### Errors
 If you experience errors, it is likely that you do not have all of the requisite dependencies installed.  Please ensure that you do. Follow the instructions, below.
