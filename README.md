@@ -22,12 +22,14 @@ dotnet test
 ```
 
 5. Run the application
-
-`dotnet run -p src/Infrastructure.WebApi/`
+```bash
+dotnet run -p src/Infrastructure.WebApi/
+```
 
 6. Manually test the application
-
-`curl http://localhost:5000/api/values`
+```bash
+curl http://localhost:5000/api/values
+```
 
 ### Errors
 If you experience errors, it is likely that you do not have all of the requisite dependencies installed.  Please ensure that you do. Follow the instructions, below.
