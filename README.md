@@ -16,9 +16,6 @@ In order to quickly get up and running, you'll need to perform the following ste
 1. Run the build and test commands
 1. Run the application
 
-## Documentation
-You can find further documentation detailing the concepts behind this reference architecture in the [reference-architecture-api Wiki][7].
-
 ## Install Dependencies
 There are a number of depenedencies that must be installed locally on your development machine in order to get this application to build and run.  The dependencies are detailed below, along with direct links that you can use to download them.
 
@@ -79,6 +76,9 @@ There are a number of scripts that can be used to expedite each aspect of the ma
 
 ### Build and run the application
 `sh/run.sh`
+
+## Documentation
+You can find further documentation detailing the concepts behind this reference architecture in the [reference-architecture-api Wiki][7].
 
 [1]: https://www.microsoft.com/net/learn/get-started/ "Get started with .NET in 10 Minutes"
 [2]: https://desktop.github.com/ "GitHub Desktop"
