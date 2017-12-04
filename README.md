@@ -74,7 +74,7 @@ There are a number of scripts that can be used to expedite each aspect of the ma
 ### Build the Docker image
 `sh/build_image.sh`
 
-### Build and run the Docker container
+### Run the Docker container
 `sh/build_continer.sh`
 
 ### Build and run the application
