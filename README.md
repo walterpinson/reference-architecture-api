@@ -11,13 +11,20 @@ Assuming that the dev environment already has all of the dependencies installed,
 1. Fork the repository
 1. Clone the forked repository
 1. Run the build and test commands
-    1. `dotnet restore`
-    2. `dotnet build`
-    3. `dotnet test`
+```bash
+dotnet restore
+dotnet build
+```
+
+1. Manually run the unit and integration tests
+```bash
+dotnet test
+```
+
 1. Run the application
-    1. `dotnet run -p src/Infrastructure.WebApi/`
+`dotnet run -p src/Infrastructure.WebApi/`
 1. Manually test the application
-    1. `curl http://localhost:5000/api/values`
+`curl http://localhost:5000/api/values`
 
 ### Errors
 If you experience errors, it is likely that you do not have all of the requisite dependencies installed.  Please ensure that you do. Follow the instructions, below.
