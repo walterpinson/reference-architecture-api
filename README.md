@@ -1,7 +1,11 @@
 # Getting Started
 
 ## Overview
+This repository, `reference-architecture-api`, is a core component of an overal reference architecture that I promote for building secure enterprise and Internet-scale web applications.  The is API repository can be used as a template to build microservices in an efficient and repeatable way.
 
+There is no need to reinvent the wheel.  And many best practices are already baked into this solution.
+
+This example API is built on the .NET Core and is cross platform compatiable.  It can run locally on any platform that can host .NET Core and is specifically implemented to run within Linux-based Docker containers.
 
 ## Documentation
 You can find further documentation detailing the concepts behind this reference architecture in this repository's related Wiki.
