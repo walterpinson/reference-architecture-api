@@ -44,6 +44,7 @@
 
             services.AddAutoMapper(cfg =>
             {
+                cfg.AddProfile<MongoMappingProfile>();
                 cfg.AddProfile<MessageMappingProfile>();
             });
 
@@ -51,7 +52,8 @@
             services.AddSingleton<INoteFactory, NoteFactory>();
             services.AddSingleton<ISubscriberFactory, SubscriberFactory>();
             services.AddSingleton<ICategoryFactory, CategoryFactory>();
-            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<ICategoryRepository>(sp =>
+                new CategoryRepository(Configuration.GetConnectionString("NoteTakingService"), sp.GetRequiredService<IMapper>()));
             services.AddTransient<INoteTaker, NoteTaker>();
             services.AddTransient<IRegistrar, Registrar>();
         }
