@@ -52,4 +52,4 @@ dotnet test
 [4]: https://www.mongodb.com/download-center#atlas "MongoDB"
 [5]: https://mlab.com "mLab"
 [6]: https://hub.docker.com/_/mongo/ "Official Mongo Repository"
-[7]: /walterpinson/reference-architecture-api/wiki
+[7]: walterpinson/reference-architecture-api/wiki
