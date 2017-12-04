@@ -7,6 +7,15 @@ There is no need to reinvent the wheel.  And many best practices are already bak
 
 This example API is built on the .NET Core and is cross platform compatiable.  It can run locally on any platform that can host .NET Core and is specifically implemented to run within Linux-based Docker containers.
 
+### Get Up and Running Quickly
+In order to quickly get up and running, you'll need to perform the following steps; which are expained in detail in the sections below.
+
+1. Install the dependencies
+1. Fork the repository
+1. Clone the fork
+1. Run the build and test commands
+1. Run the application
+
 ## Documentation
 You can find further documentation detailing the concepts behind this reference architecture in the [reference-architecture-api Wiki][7].
 
