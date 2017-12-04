@@ -11,6 +11,7 @@ This example API is built on the .NET Core and is cross platform compatiable.  I
 You can find further documentation detailing the concepts behind this reference architecture in the [reference-architecture-api Wiki][7].
 
 ## Install Dependencies
+There are a number of depenedencies that must be installed locally on your development machine in order to get this application to build and run.  The dependencies are detailed below, along with direct links that you can use to download them.
 
 ### Git SCM
 Install [Git SCM][3] for your given platform.  This will install the git bash command-line tool that has all of the environment variables arleady configured.  There is also an option to install the environment variables for use with the standard Windows command-line or OSX Terminal.
