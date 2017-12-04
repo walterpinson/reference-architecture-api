@@ -43,9 +43,13 @@ You will need to install Docker on your local development machine.
 2. Install [Docker for Mac][8]
 
 ## Fork the Repository
+Navigate in your browswer to the reference-architecture-api repository.
+https://github.com/walterpinson/reference-architecture-api
 
+Follow the GitHub instructions for [Forking a Repository][10].
 
 ## Clone the Fork
+Navigate to your fork of the reference-architecture-api repository.  Follow the GitHub instructions for [Cloning a Repository][11].
 
 ## Build / Test
 You can manually build the API on your local host by running the following commands in a git-bash window, terminal window, or Windows command-line window after switching to the repository root directory.
@@ -85,3 +89,5 @@ There are a number of scripts that can be used to expedite each aspect of the ma
 [7]: https://github.com/walterpinson/reference-architecture-api/wiki "reference-architecture-api Wiki"
 [8]: https://docs.docker.com/docker-for-mac/install/ "Docker for Mac"
 [9]: https://docs.docker.com/docker-for-windows/install/ "Docker for Windows"
+[10]: https://help.github.com/articles/fork-a-repo/ "Fork a Repository"
+[11]: https://help.github.com/articles/cloning-a-repository/ "Cloning a Repository"
