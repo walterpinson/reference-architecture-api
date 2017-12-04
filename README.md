@@ -8,7 +8,7 @@ There is no need to reinvent the wheel.  And many best practices are already bak
 This example API is built on the .NET Core and is cross platform compatiable.  It can run locally on any platform that can host .NET Core and is specifically implemented to run within Linux-based Docker containers.
 
 ## Documentation
-You can find further documentation detailing the concepts behind this reference architecture in this repository's related Wiki.
+You can find further documentation detailing the concepts behind this reference architecture in the [reference-architecture-api Wiki][7].
 
 ## Install Dependencies
 
@@ -51,3 +51,4 @@ dotnet test
 [4]: https://www.mongodb.com/download-center#atlas "MongoDB"
 [5]: https://mlab.com "mLab"
 [6]: https://hub.docker.com/_/mongo/ "Official Mongo Repository"
+[7]: /walterpinson/reference-architecture-api/wiki
