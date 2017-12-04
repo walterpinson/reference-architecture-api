@@ -29,8 +29,12 @@ There are a couple of different options for satisfying the MongoDB requirement.
 1. You can use a hosted docker service, like [mLab][5] or Azure's CosmoDB.
 
 ### Docker
+You will need to install Docker on your local development machine.
+1. Install [Docker for Windows][9]
+2. Install [Docker for Mac][8]
 
 ## Fork the Repository
+
 
 ## Clone the Fork
 
@@ -53,3 +57,5 @@ dotnet test
 [5]: https://mlab.com "mLab"
 [6]: https://hub.docker.com/_/mongo/ "Official Mongo Repository"
 [7]: https://github.com/walterpinson/reference-architecture-api/wiki "reference-architecture-api Wiki"
+[8]: https://docs.docker.com/docker-for-mac/install/ "Docker for Mac"
+[9]: https://docs.docker.com/docker-for-windows/install/ "Docker for Windows"
