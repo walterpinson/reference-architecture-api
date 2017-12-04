@@ -16,7 +16,12 @@ Though they are not required, it may also be useful to install [GitHub for Windo
 ### .Net Command-Line Interface
 You will want to install the [dotnet-cli][1] and associated tools.  The build script used in this repository have a dependency on the .NET command-line tools.
 
-### MongoDb
+### MongoDB
+There are a couple of different options for satisfying the MongoDB requirement.
+
+1. You can [download the MongoDB binaries][4] and install directly onto your local development machine.
+1. You can downlaod the official [MongoDB Docker image][6] and run that locally.
+1. You can use a hosted docker service, like [mLab][5] or Azure's CosmoDB.
 
 ### Docker
 
@@ -39,3 +44,6 @@ dotnet test
 [1]: https://www.microsoft.com/net/learn/get-started/ "Get started with .NET in 10 Minutes"
 [2]: https://desktop.github.com/ "GitHub Desktop"
 [3]: https://git-scm.com/downloads "Git SCM"
+[4]: https://www.mongodb.com/download-center#atlas "MongoDB"
+[5]: https://mlab.com "mLab"
+[6]: https://hub.docker.com/_/mongo/ "Official Mongo Repository"
