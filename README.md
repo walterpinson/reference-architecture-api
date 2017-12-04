@@ -1,20 +1,28 @@
 # Getting Started
 
 ## Overview
-This repository, `reference-architecture-api`, is a core component of an overal reference architecture that I promote for building secure enterprise and Internet-scale web applications.  The is API repository can be used as a template to build microservices in an efficient and repeatable way.
-
-There is no need to reinvent the wheel.  And many best practices are already baked into this solution.
+This repository, `reference-architecture-api`, is a core component of an overall reference architecture that I promote for building secure enterprise and Internet-scale web applications.  The is API repository can be used as a template to build microservices in an efficient and repeatable way. There is no need to reinvent the wheel and many best practices are already baked into this solution.
 
 This example API is built on the .NET Core and is cross platform compatiable.  It can run locally on any platform that can host .NET Core and is specifically implemented to run within Linux-based Docker containers.
 
-### Get Up and Running Quickly
-In order to quickly get up and running, you'll need to perform the following steps; which are expained in detail in the sections below.
+### Quick Install
+Assuming that the dev environment already has all of the dependencies installed, the following steps will quickly get you up and running and testing this API.
 
-1. Install the dependencies
 1. Fork the repository
-1. Clone the fork
+1. Clone the forked repository
 1. Run the build and test commands
+    1. `dotnet restore`
+    2. `dotnet build`
+    3. `dotnet test`
 1. Run the application
+    1. `dotnet run -p src/Infrastructure.WebApi/`
+1. Manually test the application
+    1. `curl http://localhost:5000/api/values`
+
+### Errors
+If you experience errors, it is likely that you do not have all of the requisite dependencies installed.  Please ensure that you do. Follow the instructions, below.
+
+If it turns out that you do have all of the dependencies installed and you are still experiencing errors, please create a new Issue.
 
 ## Install Dependencies
 There are a number of depenedencies that must be installed locally on your development machine in order to get this application to build and run.  The dependencies are detailed below, along with direct links that you can use to download them.
@@ -56,11 +64,20 @@ dotnet restore
 dotnet build
 ```
 
-If you want to run the unit tests and the integration tests, issue the following command in the repository root directory.
+If you want to run the unit tests and the integration tests, issue the following commnand.
 
 ```bash
 dotnet test
 ```
+
+If you want to launch the API on your local host, issue the following command.
+
+```bash
+dotnet run
+```
+
+The [dotnet command-line interface documentation][12] is quite useful for those looking for command-line mastery.
+
 
 ## Run
 There are a number of scripts that can be used to expedite each aspect of the manual build process or tie them all together in order to get the application running in a Docker container.
@@ -91,3 +108,4 @@ You can find further documentation detailing the concepts behind this reference 
 [9]: https://docs.docker.com/docker-for-windows/install/ "Docker for Windows"
 [10]: https://help.github.com/articles/fork-a-repo/ "Fork a Repository"
 [11]: https://help.github.com/articles/cloning-a-repository/ "Cloning a Repository"
+[12]: https://docs.microsoft.com/en-us/dotnet/core/tools/?tabs=netcore2x "Dotnet CLI Documentation"
