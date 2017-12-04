@@ -9,21 +9,24 @@ This example API is built on the .NET Core and is cross platform compatiable.  I
 Assuming that the dev environment already has all of the dependencies installed, the following steps will quickly get you up and running and testing this API.
 
 1. Fork the repository
-1. Clone the forked repository
-1. Run the build and test commands
+2. Clone the forked repository
+3. Run the build and test commands
 ```bash
 dotnet restore
 dotnet build
 ```
 
-1. Manually run the unit and integration tests
+4. Manually run the unit and integration tests
 ```bash
 dotnet test
 ```
 
-1. Run the application
+5. Run the application
+
 `dotnet run -p src/Infrastructure.WebApi/`
-1. Manually test the application
+
+6. Manually test the application
+
 `curl http://localhost:5000/api/values`
 
 ### Errors
