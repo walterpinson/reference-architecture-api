@@ -37,7 +37,7 @@ namespace Test.Integration.Infrastructure.Data.MongoDb
                 .AddEnvironmentVariables();
             _config = builder.Build();
 
-            _connectionString = _config.GetConnectionString("NoteTakerTest");
+            _connectionString = _config.GetConnectionString("NoteTakingTest");
             _collectionManager = new MongoRepositoryManager<MongoCategory, Guid>(_connectionString, "Categories");
             _collectionManager.DropDatabase();
         }
