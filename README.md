@@ -64,7 +64,7 @@ There are a number of scripts that can be used to expedite each aspect of the ma
 ### Build and run the Docker container
 `sh/build_continer.sh`
 
-## Build and run the application
+### Build and run the application
 `sh/run.sh`
 
 [1]: https://www.microsoft.com/net/learn/get-started/ "Get started with .NET in 10 Minutes"
