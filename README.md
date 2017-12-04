@@ -39,16 +39,33 @@ You will need to install Docker on your local development machine.
 ## Clone the Fork
 
 ## Build / Test
-You can manually build and test the API on your local host by running the following commands in a git-bash window, terminal window, or Windows command-line window after switching to the repository root directory.
+You can manually build the API on your local host by running the following commands in a git-bash window, terminal window, or Windows command-line window after switching to the repository root directory.
 
 ```bash
 dotnet restore
 dotnet build
+```
+
+If you want to run the unit tests and the integration tests, issue the following command in the repository root directory.
+
+```bash
 dotnet test
 ```
 
 ## Run
+There are a number of scripts that can be used to expedite each aspect of the manual build process or tie them all together in order to get the application running in a Docker container.
 
+### Build and publish the application
+`sh/build_app.sh`
+
+### Build the Docker image
+`sh/build_image.sh`
+
+### Build and run the Docker container
+`sh/build_continer.sh`
+
+## Build and run the application
+`sh/run.sh`
 
 [1]: https://www.microsoft.com/net/learn/get-started/ "Get started with .NET in 10 Minutes"
 [2]: https://desktop.github.com/ "GitHub Desktop"
