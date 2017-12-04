@@ -95,6 +95,10 @@ The [dotnet command-line interface documentation][12] is quite useful for those 
 ## Run
 There are a number of scripts that can be used to expedite each aspect of the manual build process or tie them all together in order to get the application running in a Docker container.
 
+### Build and run the application
+`sh/run.sh`
+This command deletes any existing containers, and rebuilds the source, rebuilds the docker image, and reruns the container.
+
 ### Build and publish the application
 `sh/build_app.sh`
 
@@ -104,8 +108,6 @@ There are a number of scripts that can be used to expedite each aspect of the ma
 ### Run the Docker container
 `sh/build_continer.sh`
 
-### Build and run the application
-`sh/run.sh`
 
 ## Documentation
 You can find further documentation detailing the concepts behind this reference architecture in the [reference-architecture-api Wiki][7].
