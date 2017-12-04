@@ -96,7 +96,10 @@ The [dotnet command-line interface documentation][12] is quite useful for those 
 There are a number of scripts that can be used to expedite each aspect of the manual build process or tie them all together in order to get the application running in a Docker container.
 
 ### Build and run the application
-`sh/run.sh`
+```bash
+sh/run.sh
+```
+
 This command deletes any existing containers, and rebuilds the source, rebuilds the docker image, and reruns the container.
 
 ### Build and publish the application
