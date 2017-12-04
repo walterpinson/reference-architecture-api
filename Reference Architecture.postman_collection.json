@@ -20,12 +20,10 @@
 							"raw": "{\n  \"name\": \"Extra-large\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/categories",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/v1/categories",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -43,17 +41,15 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/categories/58b36569-5c70-41f7-b208-3c615e7f7159",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/v1/categories/c5993571-e278-422f-a3e0-a262797fc63c",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
 								"categories",
-								"58b36569-5c70-41f7-b208-3c615e7f7159"
+								"c5993571-e278-422f-a3e0-a262797fc63c"
 							]
 						},
 						"description": ""
@@ -76,15 +72,13 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Extra-large\"\n}"
+							"raw": "{\n  \"name\": \"Sport Utility Vehicles\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/categories",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/v1/categories",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
@@ -111,20 +105,18 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\": \"58b36569-5c70-41f7-b208-3c615e7f7159\",\n\t\"name\": \"Extra-large\",\n\t\"created\": \"2009-06-15T13:45:30.0000000Z\",\n\t\"notes\": [{}],\n\t\"subscribers\": [{}]\n}"
+							"raw": "{\n\t\"id\": \"93661d8b-2b4c-410c-a4fd-36073be41e9b\",\n\t\"name\": \"Extra-large\",\n\t\"created\": \"2009-06-15T13:45:30.0000000Z\",\n\t\"notes\": [{}],\n\t\"subscribers\": [{}]\n}"
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/v1/categories/58b36569-5c70-41f7-b208-3c615e7f7159",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/v1/categories/93661d8b-2b4c-410c-a4fd-36073be41e9b",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"v1",
 								"categories",
-								"58b36569-5c70-41f7-b208-3c615e7f7159"
+								"93661d8b-2b4c-410c-a4fd-36073be41e9b"
 							]
 						},
 						"description": ""
