@@ -163,19 +163,18 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
                 throw new ArgumentNullException(nameof(newNoteMessage));
             }
 
-            var category = _categoryRepository.Get(categoryId);
-            if (null == category) throw new NotFoundException("Category not found.");
-
-            category = _categoryFactory.Build(
-                category,
-                _noteFactory,
-                _subscriberFactory
-            );
+            var category = GetCategory(categoryId);
 
             category.AddNote(newNoteMessage.Text);
             category = _categoryRepository.Save(category);
 
             return _mapper.Map<CategoryDto>(category);
+        }
+
+        public IList<NoteDto> ListCategorizedNotes(Guid categoryId)
+        {
+            var category = GetCategory(categoryId);
+            return _mapper.Map<IList<NoteDto>>(category.Notes);
         }
 
         private ICategory GetDefaultCategory()
@@ -191,6 +190,20 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
                 );
                 category = _categoryRepository.Add(category);
             }
+
+            category = _categoryFactory.Build(
+                category,
+                _noteFactory,
+                _subscriberFactory
+            );
+
+            return category;
+        }
+
+        private ICategory GetCategory(Guid categoryId)
+        {
+            var category = _categoryRepository.Get(categoryId);
+            if (null == category) throw new NotFoundException("Category not found.");
 
             category = _categoryFactory.Build(
                 category,
