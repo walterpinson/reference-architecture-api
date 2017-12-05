@@ -42,7 +42,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb
 
         public ICategory GetByName(string name)
         {
-            var mongoCategory = this.collection.Find(m => m.Name == name).First();
+            var mongoCategory = this.collection.Find(m => m.Name == name).SingleOrDefault();
             return (null == mongoCategory) ? null : _mapper.Map<ICategory>(mongoCategory);
         }
 
