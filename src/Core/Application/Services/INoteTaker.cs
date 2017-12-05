@@ -9,6 +9,7 @@ namespace CompanyName.Notebook.NoteTaking.Core.Application.Services
         // Work with notes with regard for categories.
         // In esseence these notes will be stored in the context of default category.
         NoteDto TakeNote(NewNoteMessage newNoteMessage);
+        NoteDto ReadNote(Guid noteId);
         void RemoveNote(Guid noteId);
         IList<NoteDto> ListNotes();
 

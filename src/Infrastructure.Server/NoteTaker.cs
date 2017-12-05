@@ -47,6 +47,15 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             return _mapper.Map<NoteDto>(note);
         }
 
+        public NoteDto ReadNote(Guid noteId)
+        {
+            var category = GetDefaultCategory();
+
+            var note = category.RevealNote(noteId);
+
+            return _mapper.Map<NoteDto>(note);
+        }
+
         public void RemoveNote(Guid noteId)
         {
             var category = GetDefaultCategory();
