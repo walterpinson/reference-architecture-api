@@ -42,10 +42,10 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         /// <response code="200">Notes found and returned</response>
         // GET api/v1/notes
 
-        [HttpGet(Name="GetNote"), Route("{id:guid}")]
+        [HttpGet, Route("{id:guid}")]
         [ProducesResponseType(typeof(IList<NoteDto>), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 400)]
-        public IActionResult Get(Guid id)
+        public IActionResult GetNote(Guid id)
         {
             throw new NotImplementedException();
         }
