@@ -177,6 +177,13 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             return _mapper.Map<IList<NoteDto>>(category.Notes);
         }
 
+        public NoteDto ReadCategorizedNote(Guid categoryId, Guid noteId)
+        {
+            var category = GetCategory(categoryId);
+            var note = category.RevealNote(noteId);
+            return _mapper.Map<NoteDto>(note);
+        }
+
         private ICategory GetDefaultCategory()
         {
             var defaultCategoryName = "default";

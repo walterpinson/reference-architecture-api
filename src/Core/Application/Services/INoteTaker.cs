@@ -24,5 +24,6 @@ namespace CompanyName.Notebook.NoteTaking.Core.Application.Services
         CategoryDto TakeCategorizedNote(Guid categoryId, NewNoteMessage newNoteMessage);
         CategoryDto RemoveCategorizedNote(Guid categoryId, Guid noteId);
         IList<NoteDto> ListCategorizedNotes(Guid categoryId);
+        NoteDto ReadCategorizedNote(Guid categoryId, Guid noteId);
     }
 }

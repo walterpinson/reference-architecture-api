@@ -113,5 +113,22 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
             var noteDtos =_noteTaker.ListCategorizedNotes(id);
             return Ok(noteDtos);
         }
+
+        /// <summary>
+        /// Get all notes from the given category
+        /// </summary>
+        /// <param name="id">Category Identifier.</param>
+        /// <param name="noteId">Note Identifier.</param>
+        /// <response code="200">Note found and returned</response>
+        // GET api/v1/categories/{id}/notes/{id}
+
+        [HttpGet, Route("{id:guid}/notes/{noteId:guid}")]
+        [ProducesResponseType(typeof(NoteDto), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 400)]
+        public IActionResult GetNoteFromCategory(Guid id, Guid noteId)
+        {
+            var noteDto =_noteTaker.ReadCategorizedNote(id, noteId);
+            return Ok(noteDto);
+        }
     }
 }
