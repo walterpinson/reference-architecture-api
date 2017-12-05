@@ -128,7 +128,212 @@
 		{
 			"name": "Notes",
 			"description": "",
-			"item": []
+			"item": [
+				{
+					"name": "Create note",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept-Charset",
+								"value": "utf-8"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\": \"Pick up milk and cookies from the grocery store.  ...and vino.\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/notes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"notes"
+							]
+						},
+						"description": "Create a note in the default category."
+					},
+					"response": []
+				},
+				{
+					"name": "Create categorized note",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Charset",
+								"value": "utf-8"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"text\": \"Pick up little Johnny after football practice.\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/categories/c6fe1018-7340-45c4-ba82-6251cc831e4d/notes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"c6fe1018-7340-45c4-ba82-6251cc831e4d",
+								"notes"
+							]
+						},
+						"description": "Create a note in the category identified by the id."
+					},
+					"response": []
+				},
+				{
+					"name": "Read all notes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/notes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"notes"
+							]
+						},
+						"description": "Read notes from the default category"
+					},
+					"response": []
+				},
+				{
+					"name": "Read notes from category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/categories/c6fe1018-7340-45c4-ba82-6251cc831e4d/notes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"c6fe1018-7340-45c4-ba82-6251cc831e4d",
+								"notes"
+							]
+						},
+						"description": "Read all of the notes from a specific category"
+					},
+					"response": []
+				},
+				{
+					"name": "Read a note",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/notes/71e79f2e-eec9-445d-b3d9-47822c3f9cda",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"notes",
+								"71e79f2e-eec9-445d-b3d9-47822c3f9cda"
+							]
+						},
+						"description": "Read a specific note from the default category."
+					},
+					"response": []
+				},
+				{
+					"name": "Read categorized note",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/categories/c6fe1018-7340-45c4-ba82-6251cc831e4d/notes/5e0f5b65-42eb-4f7d-8199-394416f2cc57",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"c6fe1018-7340-45c4-ba82-6251cc831e4d",
+								"notes",
+								"5e0f5b65-42eb-4f7d-8199-394416f2cc57"
+							]
+						},
+						"description": "Read a specific note from a specific category"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove a note",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/notes/71e79f2e-eec9-445d-b3d9-47822c3f9cda",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"notes",
+								"71e79f2e-eec9-445d-b3d9-47822c3f9cda"
+							]
+						},
+						"description": "Remove a specific note from the default category."
+					},
+					"response": []
+				},
+				{
+					"name": "Remove note from category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/categories/c6fe1018-7340-45c4-ba82-6251cc831e4d/notes/693de043-b2dc-450a-814b-e6e8f21b1515",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"c6fe1018-7340-45c4-ba82-6251cc831e4d",
+								"notes",
+								"693de043-b2dc-450a-814b-e6e8f21b1515"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
