@@ -115,6 +115,22 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         }
 
         /// <summary>
+        /// Create note in the given category
+        /// </summary>
+        /// <param name="id">Category Identifier.</param>
+        /// <response code="201">Notes created</response>
+        // POST api/v1/categories/{id}/notes
+
+        [HttpPost, Route("{id:guid}/notes")]
+        [ProducesResponseType(typeof(NoteDto), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 400)]
+        public IActionResult CreateNoteInCategory(Guid id, [FromBody]NewNoteMessage newNoteMessage)
+        {
+            var noteDto =_noteTaker.TakeCategorizedNote(id, newNoteMessage);
+            return CreatedAtRoute("ReadCategorizedNote", new { noteId = noteDto.Id }, noteDto);
+        }
+
+        /// <summary>
         /// Get all notes from the given category
         /// </summary>
         /// <param name="id">Category Identifier.</param>
@@ -122,7 +138,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         /// <response code="200">Note found and returned</response>
         // GET api/v1/categories/{id}/notes/{id}
 
-        [HttpGet, Route("{id:guid}/notes/{noteId:guid}")]
+        [HttpGet("{id:guid}/notes/{noteId:guid}", Name="ReadCategorizedNote")]
         [ProducesResponseType(typeof(NoteDto), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 400)]
         public IActionResult GetNoteFromCategory(Guid id, Guid noteId)

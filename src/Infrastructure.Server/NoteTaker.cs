@@ -156,7 +156,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             return _mapper.Map<CategoryDto>(category);
         }
 
-        public CategoryDto TakeCategorizedNote(Guid categoryId, NewNoteMessage newNoteMessage)
+        public NoteDto TakeCategorizedNote(Guid categoryId, NewNoteMessage newNoteMessage)
         {
             if (newNoteMessage == null)
             {
@@ -165,10 +165,10 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
 
             var category = GetCategory(categoryId);
 
-            category.AddNote(newNoteMessage.Text);
-            category = _categoryRepository.Save(category);
+            var note = category.AddNote(newNoteMessage.Text);
+            _categoryRepository.Save(category);
 
-            return _mapper.Map<CategoryDto>(category);
+            return _mapper.Map<NoteDto>(note);
         }
 
         public IList<NoteDto> ListCategorizedNotes(Guid categoryId)

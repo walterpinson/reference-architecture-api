@@ -21,7 +21,7 @@ namespace CompanyName.Notebook.NoteTaking.Core.Application.Services
         void RemoveCategory(Guid categoryId);
 
         // Work with categorized notes
-        CategoryDto TakeCategorizedNote(Guid categoryId, NewNoteMessage newNoteMessage);
+        NoteDto TakeCategorizedNote(Guid categoryId, NewNoteMessage newNoteMessage);
         CategoryDto RemoveCategorizedNote(Guid categoryId, Guid noteId);
         IList<NoteDto> ListCategorizedNotes(Guid categoryId);
         NoteDto ReadCategorizedNote(Guid categoryId, Guid noteId);
