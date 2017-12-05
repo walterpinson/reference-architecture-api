@@ -7,6 +7,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
     using CompanyName.Notebook.NoteTaking.Core.Application.Messages;
     using CompanyName.Notebook.NoteTaking.Core.Application.Services;
     using CompanyName.Notebook.NoteTaking.Core.Domain.Factories;
+    using CompanyName.Notebook.NoteTaking.Core.Domain.Models;
     using CompanyName.Notebook.NoteTaking.Core.Domain.Services;
 
     public class NoteTaker : INoteTaker
@@ -38,23 +39,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
 
         public NoteDto TakeNote(NewNoteMessage newNoteMessage)
         {
-            var defaultCategoryName = "default";
-            var category = _categoryRepository.GetByName(defaultCategoryName);
-            if (null == category)
-            {
-                category = _categoryFactory.Create(
-                    "default",
-                    _noteFactory,
-                    _subscriberFactory
-                );
-                category = _categoryRepository.Add(category);
-            }
-
-            category = _categoryFactory.Build(
-                category,
-                _noteFactory,
-                _subscriberFactory
-            );
+            var category = GetDefaultCategory();
 
             var note = category.AddNote(newNoteMessage.Text);
             _categoryRepository.Save(category);
@@ -64,23 +49,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
 
         public void RemoveNote(Guid noteId)
         {
-            var defaultCategoryName = "default";
-            var category = _categoryRepository.GetByName(defaultCategoryName);
-            if (null == category)
-            {
-                category = _categoryFactory.Create(
-                    "default",
-                    _noteFactory,
-                    _subscriberFactory
-                );
-                category = _categoryRepository.Add(category);
-            }
-
-            category = _categoryFactory.Build(
-                category,
-                _noteFactory,
-                _subscriberFactory
-            );
+            var category = GetDefaultCategory();
 
             category.RemoveNote(noteId);
             _categoryRepository.Save(category);
@@ -88,23 +57,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
 
         public IList<NoteDto> ListNotes()
         {
-            var defaultCategoryName = "default";
-            var category = _categoryRepository.GetByName(defaultCategoryName);
-            if (null == category)
-            {
-                category = _categoryFactory.Create(
-                    "default",
-                    _noteFactory,
-                    _subscriberFactory
-                );
-                category = _categoryRepository.Add(category);
-            }
-
-            category = _categoryFactory.Build(
-                category,
-                _noteFactory,
-                _subscriberFactory
-            );
+            var category = GetDefaultCategory();
 
             var notes = category.Notes;
 
@@ -214,6 +167,29 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             category = _categoryRepository.Save(category);
 
             return _mapper.Map<CategoryDto>(category);
+        }
+
+        private ICategory GetDefaultCategory()
+        {
+            var defaultCategoryName = "default";
+            var category = _categoryRepository.GetByName(defaultCategoryName);
+            if (null == category)
+            {
+                category = _categoryFactory.Create(
+                    "default",
+                    _noteFactory,
+                    _subscriberFactory
+                );
+                category = _categoryRepository.Add(category);
+            }
+
+            category = _categoryFactory.Build(
+                category,
+                _noteFactory,
+                _subscriberFactory
+            );
+
+            return category;
         }
     }
 }
