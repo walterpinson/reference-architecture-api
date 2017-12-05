@@ -146,5 +146,23 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
             var noteDto =_noteTaker.ReadCategorizedNote(id, noteId);
             return Ok(noteDto);
         }
+
+
+        /// <summary>
+        /// Delete the note.
+        /// </summary>
+        /// <param name="id">Category id.</param>
+        /// <param name="noteId">Note id.</param>
+        /// <response code="200">Note deleted.</response>
+        // DELETE api/v1/categories/:id/notes/:id
+
+        [HttpDelete, Route("{id:guid}/notes/{noteId:guid}")]
+        [ProducesResponseType(typeof(BadRequestResult), 400)]
+        public IActionResult DeleteCategorizedNote(Guid id, Guid noteId)
+        {
+            _noteTaker.RemoveCategorizedNote(id, noteId);
+            return NoContent();
+        }
+
     }
 }
