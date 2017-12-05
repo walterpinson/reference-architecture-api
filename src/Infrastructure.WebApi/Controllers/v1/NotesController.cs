@@ -36,6 +36,21 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         }
 
         /// <summary>
+        /// Get all notes from the default group
+        /// </summary>
+        /// <param name="id">Note id.</param>
+        /// <response code="200">Notes found and returned</response>
+        // GET api/v1/notes
+
+        [HttpGet(Name="GetNote"), Route("{id:guid}")]
+        [ProducesResponseType(typeof(IList<NoteDto>), 200)]
+        [ProducesResponseType(typeof(BadRequestResult), 400)]
+        public IActionResult Get(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         /// Create new Note.
         /// </summary>
         /// <param name="newNoteMessage">New Note Message.</param>
@@ -48,7 +63,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         public IActionResult Post([FromBody]NewNoteMessage newNoteMessage)
         {
             var noteDto = _noteTaker.TakeNote(newNoteMessage);
-            return CreatedAtAction("Get", new { id = noteDto.Id }, noteDto);
+            return CreatedAtRoute("GetNote", new { id = noteDto.Id }, noteDto);
         }
 
         /// <summary>
