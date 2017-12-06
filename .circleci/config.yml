@@ -1,0 +1,123 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/reference-architecture-api
+    docker:
+      - image: microsoft/aspnetcore-build
+
+
+    steps:
+      # Build Process
+      - checkout
+      - attach_workspace:
+          at: ~/reference-architecture-api
+      - run:
+          name: Install the Note Taking API's NuGet Dependencies
+          command: dotnet restore --configfile ~/reference-architecture-api/NuGet.config
+      - run:
+          name: Build the Note Taking API
+          command: dotnet build
+      - run:
+          name: Execute Unit Tests
+          command: |
+            dotnet test test/Test.Unit.Core/ --no-restore --no-build -v n
+            dotnet test test/Test.Unit.Infrastructure.Server/ --no-restore --no-build -v n
+            dotnet test test/Test.Unit.Infrastructure.WebApi/ --no-restore --no-build -v n
+            dotnet test test/Test.Unit.Infrastructure.Data.MongoDb/ --no-restore --no-build -v n
+      - run:
+          name: Publish Build / Deployable Files
+          command: dotnet publish  src/Infrastructure.WebApi/Infrastructure.WebApi.csproj -o ~/reference-architecture-api/publish
+      - persist_to_workspace:
+          root: .
+          paths:
+            - publish
+            - test/Test.Integration*
+
+  test_integration: 
+    working_directory: ~/reference-architecture-api
+    docker:
+      - image: microsoft/aspnetcore-build
+
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/reference-architecture-api
+      - run:
+          name: Rebuild Integration Test Projects
+          command: |
+            dotnet build test/Test.Integration.Infrastructure.Data.MongoDb/
+      - run:
+          name: Execute Integration Tests
+          command: |
+            dotnet test test/Test.Integration.Infrastructure.Data.MongoDb/ --no-restore --no-build -v n
+
+  deploy_to_dockerhub:
+    working_directory: ~/reference-architecture-api
+    docker:
+      - image: docker:17.05.0-ce-git
+
+    steps:
+      # Deployment Process
+      - setup_remote_docker
+      - checkout
+      - attach_workspace:
+          at: ~/reference-architecture-api
+
+      # build and push Docker image
+      - deploy:
+          name: Deploy Image to Docker Hub
+          command: |
+            TAG=0.1.0_build_$CIRCLE_BUILD_NUM
+            EXPOSED_PORT=80
+            docker build --rm=false --no-cache -t walterpinson/reference-architecture-api .
+            docker tag walterpinson/reference-architecture-api:latest walterpinson/reference-architecture-api:$TAG
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push walterpinson/reference-architecture-api
+
+workflows:
+  version: 2
+
+  build_only:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore:
+                - master
+                - dev
+
+  # build_test:
+  #   jobs:
+  #     - build:
+  #         filters:
+  #           branches:
+  #             ignore: master
+  #     - test_integration:
+  #         requires:
+  #           - build
+
+  # build_test_deploy:
+  #   jobs:
+  #     - build:
+  #           filters:
+  #               branches:
+  #                 only:
+  #                   - master
+  #                   - dev
+  #     - test_integration:
+  #         requires:
+  #           - build
+  #     - deploy_to_dockerhub:
+  #         requires:
+  #           - build
+  #           - test_integration
+
+  build_deploy:
+    jobs:
+      - build:
+          filters:
+              branches:
+                only: master
+      - deploy_to_dockerhub:
+          requires:
+            - build
