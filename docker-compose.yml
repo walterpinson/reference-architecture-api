@@ -1,0 +1,34 @@
+version: '3.3'
+networks:
+    dbnet:
+      driver: bridge
+
+services:
+    notetaking:
+        build: .
+        container_name: "stack_refarch_api"
+        image: walterpinson/reference-architecture:stackhouse
+        environment:
+            - NODE_ENV=development
+            - ASPNETCORE_ENVIRONMENT
+            - NoteTaker__NotificationService__SendGrid__ApiKey
+            - ConnectionStrings__NoteTakingService=mongodb://stack_refarch_ods:27017/ref_notetaking
+        ports:
+            - 5002:80
+        networks:
+            - dbnet
+        depends_on:
+            - mongodb
+    mongodb:
+        image: mongo:latest
+        container_name: "stack_refarch_ods"
+        environment:
+          - MONGO_DATA_DIR=/data/db
+          - MONGO_LOG_DIR=/dev/null
+        volumes:
+          - /data/docker_db:/data/db
+        ports:
+            - 27017:27017
+        networks:
+            - dbnet
+        command: mongod --smallfiles --logpath=/dev/null # --quiet
