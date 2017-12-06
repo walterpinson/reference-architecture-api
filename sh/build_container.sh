@@ -7,5 +7,5 @@ docker rm -f refarch_api
 docker run  -itd -p 5001:80 \
 -e ASPNETCORE_ENVIRONMENT \
 -e NoteTaker__NotificationService__SendGrid__ApiKey \
--e ConnectionStrings__NoteTakerService \
+-e ConnectionStrings__NoteTakingService \
 --name refarch_api walterpinson/reference-architecture-api
