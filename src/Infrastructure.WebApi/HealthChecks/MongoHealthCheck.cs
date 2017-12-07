@@ -28,8 +28,6 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.HealthChecks
         {
             try
             {
-
-
                 IMapper mapper = Mapper.Instance;
                 var subjectUnderTest = new CategoryRepository(_connectionString, mapper);
 
