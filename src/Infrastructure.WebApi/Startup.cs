@@ -37,6 +37,15 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add Support For Metrics
+            services
+                .AddMetrics(
+                    Configuration.GetSection("AppMetrics"), 
+                    options => options.GlobalTags.Add("app", "Reference Architecture - Note Taking Service"))
+                .AddJsonSerialization()
+                .AddHealthChecks()
+                .AddMetricsMiddleware(Configuration.GetSection("AspNetMetrics"));
+
             // Add Framework services
             services.AddMvc(config => {
                 config.Filters.Add(typeof(NoteBookExceptionFilter));
@@ -82,6 +91,7 @@
                 });
             }
 
+            app.UseMetrics();
             app.UseMvc();
         }
     }
