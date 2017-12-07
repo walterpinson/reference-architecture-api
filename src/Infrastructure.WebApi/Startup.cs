@@ -12,10 +12,12 @@
     using CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb;
     using CompanyName.Notebook.NoteTaking.Infrastructure.Server;
     using CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Exceptions;
+    using FluentValidation.AspNetCore;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Diagnostics;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
@@ -49,7 +51,8 @@
             // Add Framework services
             services.AddMvc(config => {
                 config.Filters.Add(typeof(NoteBookExceptionFilter));
-            });
+                config.AddMetricsResourceFilter();
+            }).AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.AddAutoMapper(cfg =>
             {
