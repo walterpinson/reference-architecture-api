@@ -4,6 +4,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
     using System.Collections.Generic;
     using CompanyName.Notebook.NoteTaking.Core.Application.Messages;
     using CompanyName.Notebook.NoteTaking.Core.Application.Services;
+    using CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Validators;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
 
@@ -59,6 +60,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         // POST api/v1/notes
 
         [HttpPost, Route("")]
+        [ValidateModel]
         [ProducesResponseType(typeof(NoteDto), 200)]
         [ProducesResponseType(typeof(BadRequestResult), 400)]
         public IActionResult Post([FromBody]NewNoteMessage newNoteMessage)
