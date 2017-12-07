@@ -7,7 +7,7 @@ services:
     notetaking:
         build: .
         container_name: "stack_refarch_api"
-        image: walterpinson/reference-architecture:stackhouse
+        image: walterpinson/reference-architecture-api:stackhouse
         environment:
             - NODE_ENV=development
             - ASPNETCORE_ENVIRONMENT
