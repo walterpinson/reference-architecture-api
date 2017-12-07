@@ -23,6 +23,7 @@
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Newtonsoft.Json;
+    using Swashbuckle.AspNetCore.Swagger;
 
     public class Startup
     {
@@ -60,6 +61,18 @@
                 cfg.AddProfile<MessageMappingProfile>();
             });
 
+            // Register the Swagger generator, defining one or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info {
+                    Title = "Note Taking API",
+                    Version = "v1",
+                    Description = "Microservice reference architecture featuring DDD and Onion.",
+                    TermsOfService = "None",
+                    Contact = new Contact { Name = "Walter Pinson", Email = "", Url = "https://github.com/walterpinson" },
+                });
+            });
+
             // Add Application services.
             services.AddSingleton<INoteFactory, NoteFactory>();
             services.AddSingleton<ISubscriberFactory, SubscriberFactory>();
@@ -93,6 +106,15 @@
                     });
                 });
             }
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Note Taking API V1");
+            });
 
             app.UseMetrics();
             app.UseMvc();
