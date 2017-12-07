@@ -17,10 +17,10 @@
         "internalConsoleOptions": "openOnSessionStart",
         "launchBrowser": {
             "enabled": true,
-            "args": "${auto-detect-url}/api/values",
+            "args": "${auto-detect-url}/api/ping",
             "windows": {
                 "command": "cmd.exe",
-                "args": "/C start ${auto-detect-url}/api/values"
+                "args": "/C start ${auto-detect-url}/api/ping"
             },
             "osx": {
                 "command": "open"
