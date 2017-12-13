@@ -85,6 +85,8 @@
 
             services.AddAuthorization(options =>
             {
+                options.AddPolicy("https://company.dev/notetaking/pingsecure", 
+                    policy => policy.Requirements.Add(new HasScopeRequirement("https://company.dev/notetaking/pingsecure", domain)));
                 options.AddPolicy("https://company.dev/notetaking/default", 
                     policy => policy.Requirements.Add(new HasScopeRequirement("https://company.dev/notetaking/default", domain)));
                 options.AddPolicy("https://company.dev/notetaking/categories:read", 
