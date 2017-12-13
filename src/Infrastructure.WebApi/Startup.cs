@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.WebApi
+﻿namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi
 {
     using System;
     using System.Collections.Generic;
