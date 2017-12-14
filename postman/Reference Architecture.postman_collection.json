@@ -72,7 +72,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Sport Utility Vehicles\"\n}"
+							"raw": "{\n  \"name\": \"Sport Utility Trucks\"\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/api/v1/categories",
@@ -334,6 +334,171 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{baseUrl}}/api/ping",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"ping"
+					]
+				},
+				"description": "Ping the API"
+			},
+			"response": []
+		},
+		{
+			"name": "Ping Secure",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"type": "any"
+						},
+						{
+							"key": "callBackUrl",
+							"type": "any"
+						},
+						{
+							"key": "authUrl",
+							"type": "any"
+						},
+						{
+							"key": "accessTokenUrl",
+							"type": "any"
+						},
+						{
+							"key": "clientId",
+							"type": "any"
+						},
+						{
+							"key": "clientSecret",
+							"type": "any"
+						},
+						{
+							"key": "clientAuth",
+							"type": "any"
+						},
+						{
+							"key": "grantType",
+							"type": "any"
+						},
+						{
+							"key": "scope",
+							"type": "any"
+						},
+						{
+							"key": "username",
+							"type": "any"
+						},
+						{
+							"key": "password",
+							"type": "any"
+						},
+						{
+							"key": "redirectUri",
+							"type": "any"
+						},
+						{
+							"key": "refreshToken",
+							"type": "any"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{baseUrl}}/api/ping/secure",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"ping",
+						"secure"
+					]
+				},
+				"description": "Ping the secure realm of the API."
+			},
+			"response": []
+		},
+		{
+			"name": "Health check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{baseUrl}}/health",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"health"
+					]
+				},
+				"description": "Health check endpoint suppoorted by AppMetrics."
+			},
+			"response": []
+		},
+		{
+			"name": "AppMetrics Ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{baseUrl}}/ping",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"ping"
+					]
+				},
+				"description": "Ping endpoint suppoorted by AppMetrics.  Response with \"pong\" if successful."
+			},
+			"response": []
+		},
+		{
+			"name": "AppMetrics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{baseUrl}}/metrics",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"metrics"
+					]
+				},
+				"description": "Endpoint returning full AppMetrics data."
+			},
+			"response": []
 		}
 	]
 }
