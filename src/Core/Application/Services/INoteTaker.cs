@@ -11,10 +11,10 @@ namespace CompanyName.Notebook.NoteTaking.Core.Application.Services
         NoteDto TakeNote(SecurityContext securityContext, NewNoteMessage newNoteMessage);
         NoteDto ReadNote(SecurityContext securityContext, Guid noteId);
         void RemoveNote(SecurityContext securityContext, Guid noteId);
-        IList<NoteDto> ListNotes(SecurityContext securityContext, );
+        IList<NoteDto> ListNotes(SecurityContext securityContext);
 
         // Work with categories
-        IList<CategoryDto> ListCategories(SecurityContext securityContext, );
+        IList<CategoryDto> ListCategories(SecurityContext securityContext);
         CategoryDto CreateNewCategory(SecurityContext securityContext, NewCategoryMessage newCategoryMessage);
         CategoryDto RenameCategory(SecurityContext securityContext, Guid categoryId, string newCategoryName);
         CategoryDto GetCategoryDetail(SecurityContext securityContext, Guid categoryId);
