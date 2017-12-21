@@ -4,12 +4,13 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
     using System.Collections.Generic;
     using CompanyName.Notebook.NoteTaking.Core.Application.Messages;
     using CompanyName.Notebook.NoteTaking.Core.Application.Services;
+    using CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1.Bases;
     using CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Validators;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
 
     [Route("api/v1/[controller]")]
-    public class CategoriesController : Controller
+    public class CategoriesController : NoteBookBaseController
     {
         private ILogger _logger;
         private readonly INoteTaker _noteTaker;
@@ -32,7 +33,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         [ProducesResponseType(typeof(BadRequestResult), 400)]
         public IActionResult Get()
         {
-            var categoryDtos =  _noteTaker.ListCategories();
+            var categoryDtos =  _noteTaker.ListCategories(SecurityContext);
             return Ok(categoryDtos);
         }
 
@@ -48,7 +49,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         [ProducesResponseType(typeof(BadRequestResult), 400)]
         public IActionResult Get(Guid id)
         {
-            var categoryDto = _noteTaker.GetCategoryDetail(id);
+            var categoryDto = _noteTaker.GetCategoryDetail(SecurityContext, id);
             return Ok(categoryDto);
         }
 
@@ -65,7 +66,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         [ProducesResponseType(typeof(BadRequestResult), 400)]
         public IActionResult Post([FromBody]NewCategoryMessage newCategoryMessage)
         {
-            var categoryDto = _noteTaker.CreateNewCategory(newCategoryMessage);
+            var categoryDto = _noteTaker.CreateNewCategory(SecurityContext, newCategoryMessage);
             return CreatedAtAction("Get", new { id = categoryDto.Id }, categoryDto);
         }
 
@@ -81,7 +82,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         [ProducesResponseType(typeof(BadRequestResult), 400)]
         public IActionResult Put(Guid id, [FromBody]CategoryDto updatedCategory)
         {
-            var categoryDto = _noteTaker.RenameCategory(id, updatedCategory.Name);
+            var categoryDto = _noteTaker.RenameCategory(SecurityContext, id, updatedCategory.Name);
             return CreatedAtAction("Get", new { id = categoryDto.Id }, categoryDto);
         }
 
@@ -96,7 +97,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         [ProducesResponseType(typeof(BadRequestResult), 400)]
         public IActionResult Delete(Guid id)
         {
-            _noteTaker.RemoveCategory(id);
+            _noteTaker.RemoveCategory(SecurityContext, id);
             return NoContent();
         }
 
@@ -112,7 +113,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         [ProducesResponseType(typeof(BadRequestResult), 400)]
         public IActionResult GetNotesFromCategory(Guid id)
         {
-            var noteDtos =_noteTaker.ListCategorizedNotes(id);
+            var noteDtos =_noteTaker.ListCategorizedNotes(SecurityContext, id);
             return Ok(noteDtos);
         }
 
@@ -129,7 +130,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         [ProducesResponseType(typeof(BadRequestResult), 400)]
         public IActionResult CreateNoteInCategory(Guid id, [FromBody]NewNoteMessage newNoteMessage)
         {
-            var noteDto =_noteTaker.TakeCategorizedNote(id, newNoteMessage);
+            var noteDto =_noteTaker.TakeCategorizedNote(SecurityContext, id, newNoteMessage);
             return CreatedAtRoute("ReadCategorizedNote", new { noteId = noteDto.Id }, noteDto);
         }
 
@@ -146,7 +147,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         [ProducesResponseType(typeof(BadRequestResult), 400)]
         public IActionResult GetNoteFromCategory(Guid id, Guid noteId)
         {
-            var noteDto =_noteTaker.ReadCategorizedNote(id, noteId);
+            var noteDto =_noteTaker.ReadCategorizedNote(SecurityContext, id, noteId);
             return Ok(noteDto);
         }
 
@@ -163,7 +164,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         [ProducesResponseType(typeof(BadRequestResult), 400)]
         public IActionResult DeleteCategorizedNote(Guid id, Guid noteId)
         {
-            _noteTaker.RemoveCategorizedNote(id, noteId);
+            _noteTaker.RemoveCategorizedNote(SecurityContext, id, noteId);
             return NoContent();
         }
 

@@ -13,7 +13,15 @@ namespace Test.Unit.Infrastructure.WebApi.Controllers
     [TestFixture]
     public class NotesControllerTester
     {
-        [Test]
+         SecurityContext _securityContext;
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            _securityContext = Substitute.For<SecurityContext>();
+        }
+
+       [Test]
         public void CanConstructNotesController()
         {
             // ARRANGE
@@ -38,14 +46,14 @@ namespace Test.Unit.Infrastructure.WebApi.Controllers
 
             var expectedNoteDtos = Substitute.For<IList<NoteDto>>();
 
-            noteTaker.ListNotes().Returns(expectedNoteDtos);
+            noteTaker.ListNotes(_securityContext).Returns(expectedNoteDtos);
 
             // ACT
             var result = subjectUnderTest.Get();
 
             // ASSERT
             Assert.That(result, Is.Not.Null);
-            noteTaker.Received(1).ListNotes();
+            noteTaker.Received(1).ListNotes(_securityContext);
         }
 
         [Test]
@@ -59,14 +67,14 @@ namespace Test.Unit.Infrastructure.WebApi.Controllers
             var newNoteMessage = Substitute.For<NewNoteMessage>();
             var expectedNoteDto = Substitute.For<NoteDto>();
 
-            noteTaker.TakeNote(newNoteMessage).Returns(expectedNoteDto);
+            noteTaker.TakeNote(_securityContext, newNoteMessage).Returns(expectedNoteDto);
 
             // ACT
             var result = subjectUnderTest.Post(newNoteMessage);
 
             // ASSERT
             Assert.That(result, Is.Not.Null);
-            noteTaker.Received(1).TakeNote(newNoteMessage);
+            noteTaker.Received(1).TakeNote(_securityContext, newNoteMessage);
         }
 
          [Test]
@@ -84,7 +92,7 @@ namespace Test.Unit.Infrastructure.WebApi.Controllers
 
             // ASSERT
             Assert.That(result, Is.Not.Null);
-            noteTaker.Received(1).RemoveNote(expectedId);
+            noteTaker.Received(1).RemoveNote(_securityContext, expectedId);
         }
    }
 }

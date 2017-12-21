@@ -12,6 +12,14 @@ namespace Test.Unit.Infrastructure.WebApi.Controllers
     [TestFixture]
     public class CategoriesControllerTester
     {
+        SecurityContext _securityContext;
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            _securityContext = Substitute.For<SecurityContext>();
+        }
+
         [Test]
         public void CanConstructCategoriesController()
         {
@@ -37,14 +45,14 @@ namespace Test.Unit.Infrastructure.WebApi.Controllers
 
             var expectedCategoryDtos = Substitute.For<IList<CategoryDto>>();
 
-            noteTaker.ListCategories().Returns(expectedCategoryDtos);
+            noteTaker.ListCategories(_securityContext).Returns(expectedCategoryDtos);
 
             // ACT
             var result = subjectUnderTest.Get();
 
             // ASSERT
             Assert.That(result, Is.Not.Null);
-            noteTaker.Received(1).ListCategories();
+            noteTaker.Received(1).ListCategories(_securityContext);
         }
 
         [Test]
@@ -58,14 +66,14 @@ namespace Test.Unit.Infrastructure.WebApi.Controllers
             var expectedCategoryDto = Substitute.For<CategoryDto>();
             var expectedId = Guid.NewGuid();
 
-            noteTaker.GetCategoryDetail(expectedId).Returns(expectedCategoryDto);
+            noteTaker.GetCategoryDetail(_securityContext, expectedId).Returns(expectedCategoryDto);
 
             // ACT
             var result = subjectUnderTest.Get(expectedId);
 
             // ASSERT
             Assert.That(result, Is.Not.Null);
-            noteTaker.Received(1).GetCategoryDetail(expectedId);
+            noteTaker.Received(1).GetCategoryDetail(_securityContext, expectedId);
         }
 
         [Test]
@@ -81,14 +89,14 @@ namespace Test.Unit.Infrastructure.WebApi.Controllers
             var expectedUpdatedCategoryDto = Substitute.For<CategoryDto>();
             expectedUpdatedCategoryDto.Name = expectedNewName;
 
-            noteTaker.RenameCategory(expectedId, expectedNewName).Returns(expectedUpdatedCategoryDto);
+            noteTaker.RenameCategory(_securityContext, expectedId, expectedNewName).Returns(expectedUpdatedCategoryDto);
 
             // ACT
             var result = subjectUnderTest.Put(expectedId, expectedUpdatedCategoryDto);
 
             // ASSERT
             Assert.That(result, Is.Not.Null);
-            noteTaker.Received(1).RenameCategory(expectedId, expectedNewName);
+            noteTaker.Received(1).RenameCategory(_securityContext, expectedId, expectedNewName);
         }
 
         [Test]
@@ -102,14 +110,14 @@ namespace Test.Unit.Infrastructure.WebApi.Controllers
             var newCategoryMessage = Substitute.For<NewCategoryMessage>();
             var expectedCategoryDto = Substitute.For<CategoryDto>();
 
-            noteTaker.CreateNewCategory(newCategoryMessage).Returns(expectedCategoryDto);
+            noteTaker.CreateNewCategory(_securityContext, newCategoryMessage).Returns(expectedCategoryDto);
 
             // ACT
             var result = subjectUnderTest.Post(newCategoryMessage);
 
             // ASSERT
             Assert.That(result, Is.Not.Null);
-            noteTaker.Received(1).CreateNewCategory(newCategoryMessage);
+            noteTaker.Received(1).CreateNewCategory(_securityContext, newCategoryMessage);
         }
 
         [Test]
@@ -127,7 +135,7 @@ namespace Test.Unit.Infrastructure.WebApi.Controllers
 
             // ASSERT
             Assert.That(result, Is.Not.Null);
-            noteTaker.Received(1).RemoveCategory(expectedId);
+            noteTaker.Received(1).RemoveCategory(_securityContext, expectedId);
         }
     }
 }

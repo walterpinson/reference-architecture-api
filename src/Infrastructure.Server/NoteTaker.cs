@@ -37,7 +37,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
         // Work with notes with regard for categories.
         // In esseence these notes will be stored in the context of default category.
 
-        public NoteDto TakeNote(NewNoteMessage newNoteMessage)
+        public NoteDto TakeNote(SecurityContext securityContext, NewNoteMessage newNoteMessage)
         {
             var category = GetDefaultCategory();
 
@@ -47,7 +47,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             return _mapper.Map<NoteDto>(note);
         }
 
-        public NoteDto ReadNote(Guid noteId)
+        public NoteDto ReadNote(SecurityContext securityContext, Guid noteId)
         {
             var category = GetDefaultCategory();
 
@@ -56,7 +56,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             return _mapper.Map<NoteDto>(note);
         }
 
-        public void RemoveNote(Guid noteId)
+        public void RemoveNote(SecurityContext securityContext, Guid noteId)
         {
             var category = GetDefaultCategory();
 
@@ -64,7 +64,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             _categoryRepository.Save(category);
         }
 
-        public IList<NoteDto> ListNotes()
+        public IList<NoteDto> ListNotes(SecurityContext securityContext)
         {
             var category = GetDefaultCategory();
 
@@ -76,7 +76,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
         //
         // Work with categories
 
-        public IList<CategoryDto> ListCategories()
+        public IList<CategoryDto> ListCategories(SecurityContext securityContext)
         {
             var categories = _categoryRepository.GetAll();
             if (null == categories) throw new NotFoundException("No Categories found.");
@@ -84,7 +84,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             return _mapper.Map<IList<CategoryDto>>(categories);
         }
 
-        public CategoryDto CreateNewCategory(NewCategoryMessage newCategoryMessage)
+        public CategoryDto CreateNewCategory(SecurityContext securityContext, NewCategoryMessage newCategoryMessage)
         {
             if (newCategoryMessage == null)
             {
@@ -102,7 +102,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             return _mapper.Map<CategoryDto>(category);
         }
 
-        public CategoryDto RenameCategory(Guid categoryId, string newCategoryName)
+        public CategoryDto RenameCategory(SecurityContext securityContext, Guid categoryId, string newCategoryName)
         {
             if (string.IsNullOrEmpty(newCategoryName))
             {
@@ -124,7 +124,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             return _mapper.Map<CategoryDto>(category);
         }
 
-        public CategoryDto GetCategoryDetail(Guid categoryId)
+        public CategoryDto GetCategoryDetail(SecurityContext securityContext, Guid categoryId)
         {
             var category = _categoryRepository.Get(categoryId);
             if (null == category) throw new NotFoundException("Category not found.");
@@ -132,14 +132,14 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             return _mapper.Map<CategoryDto>(category);
         }
 
-        public void RemoveCategory(Guid categoryId)
+        public void RemoveCategory(SecurityContext securityContext, Guid categoryId)
         {
             throw new NotImplementedException();
         }
 
         // Work with categorized notes
         
-        public CategoryDto RemoveCategorizedNote(Guid categoryId, Guid noteId)
+        public CategoryDto RemoveCategorizedNote(SecurityContext securityContext, Guid categoryId, Guid noteId)
         {
             var category = _categoryRepository.Get(categoryId);
             if (null == category) throw new NotFoundException("Category not found.");
@@ -156,7 +156,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             return _mapper.Map<CategoryDto>(category);
         }
 
-        public NoteDto TakeCategorizedNote(Guid categoryId, NewNoteMessage newNoteMessage)
+        public NoteDto TakeCategorizedNote(SecurityContext securityContext, Guid categoryId, NewNoteMessage newNoteMessage)
         {
             if (newNoteMessage == null)
             {
@@ -171,13 +171,13 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Server
             return _mapper.Map<NoteDto>(note);
         }
 
-        public IList<NoteDto> ListCategorizedNotes(Guid categoryId)
+        public IList<NoteDto> ListCategorizedNotes(SecurityContext securityContext, Guid categoryId)
         {
             var category = GetCategory(categoryId);
             return _mapper.Map<IList<NoteDto>>(category.Notes);
         }
 
-        public NoteDto ReadCategorizedNote(Guid categoryId, Guid noteId)
+        public NoteDto ReadCategorizedNote(SecurityContext securityContext, Guid categoryId, Guid noteId)
         {
             var category = GetCategory(categoryId);
             var note = category.RevealNote(noteId);
