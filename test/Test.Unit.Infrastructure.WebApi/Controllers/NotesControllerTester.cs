@@ -6,14 +6,37 @@ namespace Test.Unit.Infrastructure.WebApi.Controllers
     using CompanyName.Notebook.NoteTaking.Core.Application.Services;
     using CompanyName.Notebook.NoteTaking.Core.Domain.Models;
     using CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using NSubstitute;
     using NUnit.Framework;
+    using Test.Unit.Infrastructure.WebApi.Controllers.Bases;
 
     [TestFixture]
-    public class NotesControllerTester
+    public class NotesControllerTester : ControllerTesterTemplate<NotesController>
     {
-        [Test]
+        INoteTaker _noteTaker;
+        ILogger<NotesController> _logger;
+
+        protected override NotesController EstablishContext()
+        {
+            _noteTaker = Substitute.For<INoteTaker>();
+            _logger = Substitute.For<ILogger<NotesController>>();
+            return new NotesController(_noteTaker, _logger);
+        }
+
+        protected override void TestCleanup()
+        {
+            _noteTaker.ClearReceivedCalls();
+            _logger.ClearReceivedCalls();
+        }
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+        }
+
+       [Test]
         public void CanConstructNotesController()
         {
             // ARRANGE
@@ -32,59 +55,47 @@ namespace Test.Unit.Infrastructure.WebApi.Controllers
         public void CanGetNotes()
         {
             // ARRANGE
-            var noteTaker = Substitute.For<INoteTaker>();
-            var logger = Substitute.For<ILogger<NotesController>>();
-            var subjectUnderTest = new NotesController(noteTaker, logger);
-
             var expectedNoteDtos = Substitute.For<IList<NoteDto>>();
 
-            noteTaker.ListNotes().Returns(expectedNoteDtos);
+            _noteTaker.ListNotes(Arg.Any<SecurityContext>()).Returns(expectedNoteDtos);
 
             // ACT
-            var result = subjectUnderTest.Get();
+            var result = _subjectUnderTest.Get();
 
             // ASSERT
             Assert.That(result, Is.Not.Null);
-            noteTaker.Received(1).ListNotes();
+            _noteTaker.Received(1).ListNotes(Arg.Any<SecurityContext>());
         }
 
         [Test]
         public void CanCreateNote()
         {
             // ARRANGE
-            var noteTaker = Substitute.For<INoteTaker>();
-            var logger = Substitute.For<ILogger<NotesController>>();
-            var subjectUnderTest = new NotesController(noteTaker, logger);
-
             var newNoteMessage = Substitute.For<NewNoteMessage>();
             var expectedNoteDto = Substitute.For<NoteDto>();
 
-            noteTaker.TakeNote(newNoteMessage).Returns(expectedNoteDto);
+            _noteTaker.TakeNote(Arg.Any<SecurityContext>(), newNoteMessage).Returns(expectedNoteDto);
 
             // ACT
-            var result = subjectUnderTest.Post(newNoteMessage);
+            var result = _subjectUnderTest.Post(newNoteMessage);
 
             // ASSERT
             Assert.That(result, Is.Not.Null);
-            noteTaker.Received(1).TakeNote(newNoteMessage);
+            _noteTaker.Received(1).TakeNote(Arg.Any<SecurityContext>(), newNoteMessage);
         }
 
          [Test]
         public void CanDeleteNote()
         {
             // ARRANGE
-            var noteTaker = Substitute.For<INoteTaker>();
-            var logger = Substitute.For<ILogger<NotesController>>();
-            var subjectUnderTest = new NotesController(noteTaker, logger);
-
             var expectedId = Guid.NewGuid();
 
             // ACT
-            var result = subjectUnderTest.Delete(expectedId);
+            var result = _subjectUnderTest.Delete(expectedId);
 
             // ASSERT
             Assert.That(result, Is.Not.Null);
-            noteTaker.Received(1).RemoveNote(expectedId);
+            _noteTaker.Received(1).RemoveNote(Arg.Any<SecurityContext>(), expectedId);
         }
-   }
+    }
 }

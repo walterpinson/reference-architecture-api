@@ -4,12 +4,13 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
     using System.Collections.Generic;
     using CompanyName.Notebook.NoteTaking.Core.Application.Messages;
     using CompanyName.Notebook.NoteTaking.Core.Application.Services;
+    using CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1.Bases;
     using CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Validators;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
 
     [Route("api/v1/[controller]")]
-    public class NotesController : Controller
+    public class NotesController : NoteBookBaseController
     {
         private ILogger _logger;
         private readonly INoteTaker _noteTaker;
@@ -32,7 +33,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         [ProducesResponseType(typeof(BadRequestResult), 400)]
         public IActionResult Get()
         {
-            var noteDtos =_noteTaker.ListNotes();
+            var noteDtos =_noteTaker.ListNotes(SecurityContext);
             return Ok(noteDtos);
         }
 
@@ -48,7 +49,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         [ProducesResponseType(typeof(BadRequestResult), 400)]
         public IActionResult GetNote(Guid id)
         {
-            var noteDto = _noteTaker.ReadNote(id);
+            var noteDto = _noteTaker.ReadNote(SecurityContext, id);
             return Ok(noteDto);
         }
 
@@ -65,7 +66,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         [ProducesResponseType(typeof(BadRequestResult), 400)]
         public IActionResult Post([FromBody]NewNoteMessage newNoteMessage)
         {
-            var noteDto = _noteTaker.TakeNote(newNoteMessage);
+            var noteDto = _noteTaker.TakeNote(SecurityContext, newNoteMessage);
             return CreatedAtRoute("GetNote", new { id = noteDto.Id }, noteDto);
         }
 
@@ -80,7 +81,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Controllers.v1
         [ProducesResponseType(typeof(BadRequestResult), 400)]
         public IActionResult Delete(Guid id)
         {
-            _noteTaker.RemoveNote(id);
+            _noteTaker.RemoveNote(SecurityContext, id);
             return NoContent();
         }
     }
