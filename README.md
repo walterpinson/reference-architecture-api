@@ -6,30 +6,29 @@ This repository, `reference-architecture-api`, is a core component of an overall
 This example API is built on the .NET Core and is cross platform compatiable.  It can run locally on any platform that can host .NET Core and is specifically implemented to run within Linux-based Docker containers.
 
 ### Quick Install
-Assuming that the dev environment already has all of the dependencies installed, the following steps will quickly get you up and running and testing this API.
+The following steps will quickly get you up and running and testing this API.
 
+1. Install the dependencies (details below)
 1. Fork the repository
-2. Clone the forked repository
-3. Run the build and test commands
-```bash
-dotnet restore
-dotnet build
-```
+1. Clone the forked repository
+1. Run the build and test commands
+    ```bash
+    dotnet restore
+    dotnet build
+    ```
+1. Manually run the unit and integration tests
+    ```bash
+    dotnet test
+    ```
+1. Run the application
+    ```bash
+    dotnet run -p src/Infrastructure.WebApi/
+    ```
+1. Manually test the application
+    ```bash
+    curl http://localhost:5000/api/ping
+    ```
 
-4. Manually run the unit and integration tests
-```bash
-dotnet test
-```
-
-5. Run the application
-```bash
-dotnet run -p src/Infrastructure.WebApi/
-```
-
-6. Manually test the application
-```bash
-curl http://localhost:5000/api/ping
-```
 Or you can just copy and paste the above URL your browsers address bar.
 
 ### Errors
@@ -39,6 +38,15 @@ If it turns out that you do have all of the dependencies installed and you are s
 
 ## Install Dependencies
 There are a number of depenedencies that must be installed locally on your development machine in order to get this application to build and run.  The dependencies are detailed below, along with direct links that you can use to download them.
+
+The following table lists the absolute minimum requirements for building and running the reference API.
+| Item | Why?
+| :--- | :---
+| .Net Command-Line Interface | This tool is need to compile and run the source code.
+| MongoDB | Must be installed and running in order to run the application, as well as integration tests, in the local environment.
+| Docker | Must be installed and running in order to run the application entirely in Docker containers.
+
+
 
 ### Git SCM
 Install [Git SCM][3] for your given platform.  This will install the git bash command-line tool that has all of the environment variables arleady configured.  There is also an option to install the environment variables for use with the standard Windows command-line or OSX Terminal.
