@@ -127,7 +127,7 @@ This command deletes any existing containers, and rebuilds the source, rebuilds 
 `sh/build_image.sh`
 
 #### Run the Docker image as a container
-`sh/build_continer.sh`
+`sh/build_container.sh`
 
 
 ## Documentation
