@@ -41,7 +41,7 @@ There are a number of depenedencies that must be installed locally on your devel
 
 The following table lists the absolute minimum requirements for building and running the reference API.
 
-| Item | Why?
+| Dependency | Description
 | :--- | :---
 | .Net CLI| Command-Line Interface tool needed to compile and run the source code
 | MongoDB | Running database required to execute the application or tests in the local environment.
