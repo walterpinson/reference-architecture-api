@@ -28,7 +28,7 @@ dotnet run -p src/Infrastructure.WebApi/
 
 6. Manually test the application
 ```bash
-curl http://localhost:5000/api/values
+curl http://localhost:5000/api/ping
 ```
 Or you can just copy and paste the above URL your browsers address bar.
 
