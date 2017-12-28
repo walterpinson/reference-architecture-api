@@ -40,6 +40,7 @@ If it turns out that you do have all of the dependencies installed and you are s
 There are a number of depenedencies that must be installed locally on your development machine in order to get this application to build and run.  The dependencies are detailed below, along with direct links that you can use to download them.
 
 The following table lists the absolute minimum requirements for building and running the reference API.
+
 | Item | Why?
 | :--- | :---
 | .Net Command-Line Interface | This tool is need to compile and run the source code.
