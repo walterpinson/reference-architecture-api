@@ -104,12 +104,21 @@ The [dotnet command-line interface documentation][12] is quite useful for those 
 ## Run
 There are a number of scripts that can be used to expedite each aspect of the manual build process or tie them all together in order to get the application running in a Docker container.
 
+### Build and run the application stack
+```bash
+sh/runstack.sh
+```
+
+This command runs the API and the supporting MongoDb database server as Docker service stack.
+
 ### Build and run the application as a docker container
 ```bash
 sh/run.sh
 ```
 
-This command deletes any existing containers, and rebuilds the source, rebuilds the docker image, and reruns the container.  This is your go-to command. When you make some code changes and you want your running docker container to reflect those code changes, this is is the command that you run. 
+_NOTE: This approach still requires a running MongoDb database in the local environment._
+
+This command deletes any existing containers, and rebuilds the source, rebuilds the docker image, and reruns the container.  This is your go-to command. When you make some code changes and you want your running docker container to reflect those code changes, this is is the command that you run.
 
 ### Build the source and publish the application
 `sh/build_app.sh`
