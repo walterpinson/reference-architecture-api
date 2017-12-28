@@ -26,6 +26,7 @@
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
     using Swashbuckle.AspNetCore.Swagger;
 
     public class Startup
@@ -53,10 +54,15 @@
                 .AddMetricsMiddleware(Configuration.GetSection("AspNetMetrics"));
 
             // Add Framework services
-            services.AddMvc(config => {
-                config.Filters.Add(typeof(NoteBookExceptionFilter));
-                config.AddMetricsResourceFilter();
-            }).AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
+            services
+                .AddMvc(config => {
+                    config.Filters.Add(typeof(NoteBookExceptionFilter));
+                    config.AddMetricsResourceFilter();
+                })
+                .AddJsonOptions(opts => {
+                    opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                })
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.AddAutoMapper(cfg =>
             {
