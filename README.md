@@ -43,9 +43,9 @@ The following table lists the absolute minimum requirements for building and run
 
 | Item | Why?
 | :--- | :---
-| .Net CLI<br>(Command-Line Interface) | This tool is need to compile and run the source code.
-| MongoDB | Must be installed and running in order to run the application, as well as integration tests, in the local environment.
-| Docker | Must be installed and running in order to run the application entirely in Docker containers.
+| .Net CLI| Command-Line Interface tool needed to compile and run the source code
+| MongoDB | Database that must be running in order to execute the application and integration tests in the local environment.
+| Docker | Must be installed and running in order to run the application entirely in Docker containers
 
 
 
