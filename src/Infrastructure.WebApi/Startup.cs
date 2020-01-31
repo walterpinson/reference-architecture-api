@@ -19,7 +19,6 @@
     using Microsoft.AspNetCore.Diagnostics;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
@@ -28,6 +27,9 @@
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
     using Swashbuckle.AspNetCore.Swagger;
+    using App.Metrics.Extensions;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.OpenApi.Models;
 
     public class Startup
     {
@@ -55,11 +57,12 @@
 
             // Add Framework services
             services
-                .AddMvc(config => {
-                    config.Filters.Add(typeof(NoteBookExceptionFilter));
-                    config.AddMetricsResourceFilter();
-                })
-                .AddJsonOptions(opts => {
+                .AddMvc(config => {  
+                     config.Filters.Add(typeof(NoteBookExceptionFilter));
+                     config.EnableEndpointRouting=false;
+                     //config.AddMetricsResourceFilter();  //TODO - Metrics problem - Investigate
+                 })
+                .AddNewtonsoftJson(opts => {
                     opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 })
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
@@ -105,12 +108,12 @@
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info {
+                c.SwaggerDoc("v1", new OpenApiInfo  {
                     Title = "Note Taking API",
                     Version = "v1",
                     Description = "Microservice reference architecture featuring DDD and Onion.",
-                    TermsOfService = "None",
-                    Contact = new Contact { Name = "Walter Pinson", Email = "", Url = "https://github.com/walterpinson" },
+                    TermsOfService = new Uri("https://www.google.com"),
+                    Contact = new OpenApiContact { Name = "Walter Pinson", Email = "", Url = new Uri("https://github.com/walterpinson") },
                 });
             });
 
@@ -125,7 +128,7 @@
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
