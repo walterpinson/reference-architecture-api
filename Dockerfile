@@ -1,4 +1,4 @@
-FROM microsoft/aspnetcore:2.0
+FROM microsoft/aspnetcore:3.1
 WORKDIR /app
 COPY ./publish .
 ENTRYPOINT ["dotnet", "Infrastructure.WebApi.dll"]
