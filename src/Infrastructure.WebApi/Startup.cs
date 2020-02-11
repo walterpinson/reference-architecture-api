@@ -9,7 +9,8 @@
     using CompanyName.Notebook.NoteTaking.Core.Application.Services;
     using CompanyName.Notebook.NoteTaking.Core.Domain.Factories;
     using CompanyName.Notebook.NoteTaking.Core.Domain.Services;
-    using CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb;
+    using CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb;
+    //    using CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb;
     using CompanyName.Notebook.NoteTaking.Infrastructure.Server;
     using CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Authorization.Requirements;
     using CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.Exceptions;
@@ -69,7 +70,8 @@
 
             services.AddAutoMapper(cfg =>
             {
-                cfg.AddProfile<MongoMappingProfile>();
+                //cfg.AddProfile<MongoMappingProfile>();
+                cfg.AddProfile<MySqlMappingProfile>();
                 cfg.AddProfile<MessageMappingProfile>();
             });
 
@@ -121,8 +123,10 @@
             services.AddSingleton<INoteFactory, NoteFactory>();
             services.AddSingleton<ISubscriberFactory, SubscriberFactory>();
             services.AddSingleton<ICategoryFactory, CategoryFactory>();
+            //services.AddTransient<ICategoryRepository>(sp =>
+            //    new CategoryRepository(Configuration.GetConnectionString("NoteTakingService"), sp.GetRequiredService<IMapper>()));
             services.AddTransient<ICategoryRepository>(sp =>
-                new CategoryRepository(Configuration.GetConnectionString("NoteTakingService"), sp.GetRequiredService<IMapper>()));
+                new CategoryRepository(Configuration.GetConnectionString("NoteTakingServiceMySql"), sp.GetRequiredService<IMapper>()));
             services.AddTransient<INoteTaker, NoteTaker>();
             services.AddTransient<IRegistrar, Registrar>();
         }

@@ -3,7 +3,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.HealthChecks
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb;
+  //  using CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb;
     using App.Metrics.Health;
     using AutoMapper;
     using Microsoft.Extensions.Configuration;
@@ -29,7 +29,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.WebApi.HealthChecks
             try
             {
                 IMapper mapper = Mapper.Instance;
-                var subjectUnderTest = new CategoryRepository(_connectionString, mapper);
+                //var subjectUnderTest = new CategoryRepository(_connectionString, mapper);
 
                 return Task.FromResult(HealthCheckResult.Healthy("Ok. MongoDb is up and running"));          
             }
