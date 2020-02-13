@@ -9,6 +9,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb
     using MySql.Data.MySqlClient;
     using CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb.Models;
     using CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb.EF;
+    using Microsoft.EntityFrameworkCore;
 
     public class CategoryRepository : ICategoryRepository
     {
@@ -26,7 +27,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb
             using (var context = new NoteTakingContext())
             {
                 context.Database.EnsureCreated();
-                var cat = context.Category.FirstOrDefault(x => x.Id == id);
+                var cat = context.Category.Include(i=>i.Notes).FirstOrDefault(x => x.Id == id);
                 return (null == cat) ? null : _mapper.Map<ICategory>(cat);
             }
         }
@@ -36,10 +37,9 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb
             using (var context = new NoteTakingContext())
             {
                 context.Database.EnsureCreated();
-                var cat = context.Category.FirstOrDefault(x => x.Name == name);
+                var cat = context.Category.Include(i=>i.Notes).FirstOrDefault(x => x.Name == name);
                 return (null == cat) ? null : _mapper.Map<ICategory>(cat);
             }
-
         }
 
         public IList<ICategory> GetAll()
@@ -47,7 +47,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb
             using (var context = new NoteTakingContext())
             {
                 context.Database.EnsureCreated();
-                var categories = context.Category;
+                var categories = context.Category.Include(i=>i.Notes).ToList();
                 return (null == categories) ? null : _mapper.Map<IList<ICategory>>(categories);
             }
         }
@@ -61,7 +61,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb
                 context.Category.Add(mySqlCategory);
                 context.SaveChanges();
 
-                return category;
+                return _mapper.Map<Category>(mySqlCategory);;
             }
         }
 
@@ -71,7 +71,19 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb
             {
                 context.Database.EnsureCreated();
                 var mySqlCategory = _mapper.Map<MySqlCategory>(category);
-                context.Category.Update(mySqlCategory);
+
+                //TODO
+                //Notes don't get added on update because they have id field filled, 
+                //this makes EF think that it's an update instead of insert
+                //Need to check each note individualy and set state to update or insert
+                //foreach(var Note in mySqlCategory.Notes)
+                //{
+                //    //if not exists in context then add
+
+                //    //else update
+                //}
+
+                context.Category.Update(mySqlCategory); 
                 context.SaveChanges();
 
                 return category;

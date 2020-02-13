@@ -11,7 +11,12 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb
     {
         public MySqlMappingProfile()
         {
-            CreateMap<Category, MySqlCategory>().ReverseMap();
+            CreateMap<INote, MySqlNote>().ReverseMap();
+            CreateMap<ISubscriber, MySqlSubscriber>().ReverseMap();
+
+            CreateMap<ICategory, MySqlCategory>()
+            .ReverseMap().ConstructUsing(x => new Category() { Name = x.Name, Id=x.Id, Created = x.Created }); 
+            //TODO Above is the problematic line with automapper. Mapping Notes = x.Notes
         }
     }
 }

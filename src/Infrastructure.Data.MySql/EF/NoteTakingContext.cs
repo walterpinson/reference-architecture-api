@@ -25,7 +25,6 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb.EF
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).HasColumnType("CHAR(36)");
-                entity.HasMany<MySqlNote>();
             });
 
             modelBuilder.Entity<MySqlNote>(entity =>
