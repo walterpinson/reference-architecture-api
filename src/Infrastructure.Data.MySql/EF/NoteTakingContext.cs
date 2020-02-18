@@ -8,13 +8,20 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb.EF
 {
     public class NoteTakingContext : DbContext
     {
+        private readonly string _connectionString;
+
         public DbSet<MySqlNote> Note { get; set; }
         public DbSet<MySqlCategory> Category { get; set; }
         public DbSet<MySqlSubscriber> Subscriber { get; set; }
 
+        public NoteTakingContext(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL("Server=localhost;Port=3306;Database=notetaking;User=root;Password=Summer!2345;");
+            optionsBuilder.UseMySQL(_connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

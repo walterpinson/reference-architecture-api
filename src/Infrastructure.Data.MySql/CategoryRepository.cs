@@ -24,7 +24,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb
 
         public ICategory Get(Guid id)
         {
-            using (var context = new NoteTakingContext())
+            using (var context = new NoteTakingContext(_connectionString))
             {
                 context.Database.EnsureCreated();
                 var cat = context.Category.Include(i=>i.Notes).FirstOrDefault(x => x.Id == id);
@@ -34,7 +34,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb
 
         public ICategory GetByName(string name)
         {
-            using (var context = new NoteTakingContext())
+            using (var context = new NoteTakingContext(_connectionString))
             {
                 context.Database.EnsureCreated();
                 var cat = context.Category.Include(i=>i.Notes).FirstOrDefault(x => x.Name == name);
@@ -44,7 +44,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb
 
         public IList<ICategory> GetAll()
         {
-            using (var context = new NoteTakingContext())
+            using (var context = new NoteTakingContext(_connectionString))
             {
                 context.Database.EnsureCreated();
                 var categories = context.Category.Include(i=>i.Notes).ToList();
@@ -54,7 +54,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb
 
         public ICategory Add(ICategory category)
         {
-            using (var context = new NoteTakingContext())
+            using (var context = new NoteTakingContext(_connectionString))
             {
                 context.Database.EnsureCreated();
                 var mySqlCategory = _mapper.Map<MySqlCategory>(category);
@@ -67,7 +67,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb
 
         public ICategory Save(ICategory category)
         {
-            using (var context = new NoteTakingContext())
+            using (var context = new NoteTakingContext(_connectionString))
             {
                 context.Database.EnsureCreated();
                 var mySqlCategory = _mapper.Map<MySqlCategory>(category);
@@ -92,7 +92,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb
 
         public void Delete(Guid id)
         {
-            using (var context = new NoteTakingContext())
+            using (var context = new NoteTakingContext(_connectionString))
             {
                 context.Database.EnsureCreated();
                 var toRemove = context.Category.FirstOrDefault(x=>x.Id == id);
