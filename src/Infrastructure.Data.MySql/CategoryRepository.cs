@@ -72,18 +72,15 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MySqlDb
                 context.Database.EnsureCreated();
                 var mySqlCategory = _mapper.Map<MySqlCategory>(category);
 
-                //TODO
-                //Notes don't get added on update because they have id field filled, 
-                //this makes EF think that it's an update instead of insert
-                //Need to check each note individualy and set state to update or insert
-                //foreach(var Note in mySqlCategory.Notes)
-                //{
-                //    //if not exists in context then add
+                context.Category.Attach(mySqlCategory);
 
-                //    //else update
-                //}
-
-                context.Category.Update(mySqlCategory); 
+                foreach (var note in mySqlCategory.Notes)
+                {
+                    if(context.Note.Any(x=>x.Id.Equals(note.Id)))
+                        context.Note.Update(note);
+                    else
+                        context.Note.Add(note);
+                }
                 context.SaveChanges();
 
                 return category;
