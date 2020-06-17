@@ -1,0 +1,35 @@
+language: csharp
+mono: none
+dotnet: 3.1.201
+solution: reference-architecture-api.sln
+sudo: required
+services:
+- docker
+before_install:
+- pip install --user awscli
+- export PATH=$PATH:$HOME/.local/bin
+- curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+- chmod +x ./kubectl
+- sudo mv ./kubectl /usr/local/bin/kubectl
+- mkdir ${HOME}/.kube
+- echo "$KUBE_CONFIG" | base64 --decode > ${HOME}/.kube/config
+
+jobs:
+  include:
+    - stage: test
+      script:
+      - dotnet restore
+      - dotnet build
+      - dotnet test 
+      - dotnet publish -c Release --output ./publish
+    - stage: deploy
+      script:
+      - eval $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      - docker build -t reference-architecture-api:$TRAVIS_BUILD_NUMBER .
+      - docker tag reference-architecture-api:$TRAVIS_BUILD_NUMBER $DOCKER_REGISTRY_URL/reference-architecture-api:$TRAVIS_BUILD_NUMBER
+      - docker push $DOCKER_REGISTRY_URL/reference-architecture-api:$TRAVIS_BUILD_NUMBER
+      - kubectl set image deployment/stack_refarch_api stack_refarch_api=$DOCKER_REGISTRY_URL/reference-architecture-api:$TRAVIS_BUILD_NUMBER
+stages:
+  - test
+  - name: deploy
+    if: (branch = dev AND NOT type = pull_request)
