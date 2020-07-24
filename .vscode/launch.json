@@ -10,7 +10,7 @@
         "request": "launch",
         "preLaunchTask": "build",
         // If you have changed target frameworks, make sure to update the program path.
-        "program": "${workspaceRoot}/src/Infrastructure.WebApi/bin/Debug/netcoreapp2.0/Infrastructure.WebApi.dll",
+        "program": "${workspaceRoot}/src/Infrastructure.WebApi/bin/Debug/netcoreapp3.1/Infrastructure.WebApi.dll",
         "args": [],
         "cwd": "${workspaceRoot}/src/Infrastructure.WebApi",
         "stopAtEntry": false,
@@ -42,7 +42,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/test/Test.Unit.Core/bin/Debug/netcoreapp2.0/Test.Unit.Core.dll",
+            "program": "${workspaceFolder}/test/Test.Unit.Core/bin/Debug/netcoreapp3.1/Test.Unit.Core.dll",
             "args": [],
             "cwd": "${workspaceFolder}/test/Test.Unit.Core",
             // For more information about the 'console' field, see https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md#console-terminal-window
