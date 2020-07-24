@@ -1,0 +1,152 @@
+apiVersion: v1
+data:
+  MONGO_PORT: "27017"
+kind: ConfigMap
+metadata:
+  name: env
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: mongodb-volume
+  labels:
+    type: local
+spec:
+  storageClassName: "manual"
+  capacity:
+    storage: 200Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/mongo_data/mongodb"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongodb-volume-claim
+spec:
+  storageClassName: "manual"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 200Mi    
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb
+  labels:
+    app: mongodb
+spec:
+  selector:
+    matchLabels:
+      app: mongodb
+  serviceName: "mongodb"
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      volumes:
+        - name: mongodb-storage
+          persistentVolumeClaim:
+            claimName: mongodb-volume-claim
+      containers:
+        - image: mongo:4.0
+          name: abs-db
+          ports:
+            - containerPort: 27017
+              name: http
+          volumeMounts:
+            - mountPath: "data/db"
+              name: mongodb-storage
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+  labels:
+    app: mongodb
+spec:
+  ports:
+    - port: 27017
+  selector:
+    app: mongodb
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: stack_refarch_api
+  name: stack_refarch_api
+spec:
+  selector:
+    matchLabels:
+      app: stack_refarch_api
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        io.kompose.network/dbnet: "true"
+        app: stack_refarch_api
+    spec:
+      containers:
+      - env:
+        - name: ConnectionStrings__NoteTakingService
+          value: mongodb://mongodb/ref_notetaking
+        - name: Auth0__Audience
+          valueFrom:
+            secretKeyRef:
+              name: envsecret
+              key: Auth0__Audience
+        - name: Auth0__Domain
+          value: reference-architecture.auth0.com
+        - name: NODE_ENV
+          value: development
+        - name: ASPNETCORE_URLS
+          value: https://+;http://+;
+        image: walterpinson/reference-architecture-api:stackhouse
+        imagePullPolicy: ""
+        name: stack_refarch_api
+        ports:
+        - containerPort: 443
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service-label-key:  stack_refarch_api-loadbalancer
+  name: stack_refarch_api-loadbalancer
+spec:
+  type: LoadBalancer
+  ports:
+    - name: stack_refarch_api-loadbalancer-port
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: stack_refarch_api
+  sessionAffinity: None
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service-label-key:  stack_refarch_api-https-loadbalancer
+  name: stack_refarch_api-https-loadbalancer
+spec:
+  type: LoadBalancer
+  ports:
+    - name: stack_refarch_api-https-loadbalancer-port
+      port: 443
+      protocol: TCP
+      targetPort: 443
+  selector:
+    app: stack_refarch_api
+  sessionAffinity: None
