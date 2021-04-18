@@ -12,10 +12,11 @@ namespace Test.Unit.Infrastructure.Server
         {
             // ARRANGE
             // ACT
-            Mapper.Initialize(cfg => cfg.AddProfile<MessageMappingProfile>());
+            var configuration = new MapperConfiguration(cfg => cfg.AddProfile<MessageMappingProfile>());
+
 
             // ASSERT
-            Mapper.AssertConfigurationIsValid();
+            configuration.AssertConfigurationIsValid();
         }
     }
 }
