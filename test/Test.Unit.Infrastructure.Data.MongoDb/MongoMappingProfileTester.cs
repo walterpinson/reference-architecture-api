@@ -12,10 +12,10 @@ namespace Test.Unit.Infrastructure.Data.MongoDb
         {
             // ARRANGE
             // ACT
-            Mapper.Initialize(cfg => cfg.AddProfile<MongoMappingProfile>());
+            var configuration = new MapperConfiguration(cfg => cfg.AddProfile<MongoMappingProfile>());
 
             // ASSERT
-            Mapper.AssertConfigurationIsValid();
+            configuration.AssertConfigurationIsValid();
         }
     }
 }
