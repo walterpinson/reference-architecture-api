@@ -6,8 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="MongoRepository.Net5" Version="1.0.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.12.2" />
+    <PackageReference Include="MongoRepository.Net5" Version="1.0.1" />
   </ItemGroup>
 
   <PropertyGroup>
