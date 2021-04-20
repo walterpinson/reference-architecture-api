@@ -1,4 +1,3 @@
-version: '3.3'
 networks:
     dbnet:
       driver: bridge
