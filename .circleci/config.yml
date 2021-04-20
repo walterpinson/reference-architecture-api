@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/reference-architecture-api
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
+      - image: mcr.microsoft.com/dotnet/sdk
 
 
     steps:
@@ -36,7 +36,7 @@ jobs:
   test_integration: 
     working_directory: ~/reference-architecture-api
     docker:
-      - image: mcr.microsoft.com/dotnet/core/sdk:3.1
+      - image: mcr.microsoft.com/dotnet/sdk:5.0
 
     steps:
       - checkout

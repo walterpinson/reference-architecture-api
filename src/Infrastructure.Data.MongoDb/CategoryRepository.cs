@@ -8,7 +8,7 @@ namespace CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb
     using CompanyName.Notebook.NoteTaking.Core.Domain.Services;
     using CompanyName.Notebook.NoteTaking.Infrastructure.Data.MongoDb.Models;
     using MongoDB.Driver;
-    using MongoRepository.NetCore;
+    using MongoRepository.Net5;
 
     public class CategoryRepository : MongoRepository<MongoCategory, Guid>, ICategoryRepository
     {
