@@ -12,7 +12,7 @@ COPY . ./
 RUN dotnet publish ./src/Infrastructure.WebApi/Infrastructure.WebApi.csproj --output /out/ --configuration Release
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
+FROM mcr.microsoft.com/dotnet/aspnet:5.0
 WORKDIR /app
 COPY --from=build /out .
 
