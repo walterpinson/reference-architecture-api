@@ -10,7 +10,7 @@
         "request": "launch",
         "preLaunchTask": "build",
         // If you have changed target frameworks, make sure to update the program path.
-        "program": "${workspaceRoot}/src/Infrastructure.WebApi/bin/Debug/netcoreapp3.1/Infrastructure.WebApi.dll",
+        "program": "${workspaceRoot}/src/Infrastructure.WebApi/bin/Debug/net5.0/Infrastructure.WebApi.dll",
         "args": [],
         "cwd": "${workspaceRoot}/src/Infrastructure.WebApi",
         "stopAtEntry": false,
